@@ -1,0 +1,5 @@
+deploy:
+	deploy
+
+format:
+	alejandra .
