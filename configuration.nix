@@ -112,4 +112,13 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
+
+  nix.optimise.automatic = true;
+  nix.optimise.dates = ["03:45"]; # Optional; allows customizing optimisation schedule
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
 }
