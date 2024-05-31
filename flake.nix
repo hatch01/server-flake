@@ -24,25 +24,30 @@
     deploy-rs,
     self,
     ...
-  } @ inputs:
-        let
-      system = "x86_64-linux";
-      # Unmodified nixpkgs
-      pkgs = import nixpkgs { inherit system; 
-      config = { allowUnfree = true; };
-      };
-      # nixpkgs with deploy-rs overlay but force the nixpkgs package
-      deployPkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          deploy-rs.overlay # or deploy-rs.overlays.default
-          (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
-        ];
+  } @ inputs: let
+    system = "x86_64-linux";
+    # Unmodified nixpkgs
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {allowUnfree = true;};
     };
-    in
+    # nixpkgs with deploy-rs overlay but force the nixpkgs package
+    deployPkgs = import nixpkgs {
+      inherit system;
+      overlays = [
+        deploy-rs.overlay # or deploy-rs.overlays.default
+        (self: super: {
+          deploy-rs = {
+            inherit (pkgs) deploy-rs;
+            lib = super.deploy-rs.lib;
+          };
+        })
+      ];
+    };
+  in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = [system];
-      
+
       # replace 'joes-desktop' with your hostname here.
       flake = {
         nixosConfigurations.jonquille = nixpkgs.lib.nixosSystem {
