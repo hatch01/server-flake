@@ -59,7 +59,7 @@
           hostname = "eymeric.eu";
           profiles.system = {
             user = "root";
-            sshUser = "eymeric";
+            sshUser = "root";
             remoteBuild = true; # think on it if it is a great option
             path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.jonquille;
           };
