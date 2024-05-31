@@ -4,6 +4,7 @@
 {
   config,
   pkgs,
+  intpus,
   ...
 }: {
   imports = [
@@ -11,6 +12,15 @@
     ./hardware-configuration.nix
     ./nextcloud.nix
   ];
+
+  age = {
+    identityPaths = ["/etc/age/key"];
+
+    secrets = {
+      userPassword.file = secrets/userPassword.age;
+      githubToken.file = secrets/githubToken.age;
+    };
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -65,6 +75,7 @@
       isNormalUser = true;
       description = "eymeric";
       extraGroups = ["networkmanager" "wheel"];
+      hashedPasswordFile = config.age.secrets.userPassword.path;
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII8szPPvvc4T9fsIR876a51XTWqSjtLZaYNmH++zQzNs eymericdechelette@gmail.com"
       ];
@@ -121,4 +132,8 @@
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
+
+  nix.extraOptions = ''
+    !include ${config.age.secrets.githubToken.path}
+  '';
 }

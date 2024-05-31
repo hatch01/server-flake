@@ -21,6 +21,7 @@
   outputs = {
     flake-parts,
     nixpkgs,
+    agenix,
     deploy-rs,
     self,
     ...
@@ -52,7 +53,10 @@
       flake = {
         nixosConfigurations.jonquille = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          modules = [./configuration.nix];
+          modules = [
+            ./configuration.nix
+            agenix.nixosModules.default
+          ];
         };
 
         deploy.nodes.jonquille = {
@@ -60,7 +64,7 @@
           profiles.system = {
             user = "root";
             sshUser = "root";
-            remoteBuild = true; # think on it if it is a great option
+            # remoteBuild = true; # think on it if it is a great option
             path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.jonquille;
           };
         };
