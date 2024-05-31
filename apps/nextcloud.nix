@@ -1,9 +1,12 @@
 {pkgs, config, ...}: {
-  age.secrets = {
+  age = {
+    identityPaths = ["/etc/age/key"];
+    secrets = {
     nextcloudAdmin = {
       file = ../secrets/nextcloudAdmin.age;
       owner = "nextcloud";
     };
+  };
   };
 
   services.nextcloud = {
@@ -12,7 +15,7 @@
     hostName = "eymeric.eu";
     database.createLocally = true;
     config = {
-      adminpassFile = "${config.age.secrets.nextcloudAdmin}";
+      adminpassFile = config.age.secrets.nextcloudAdmin.path;
     };
   };
   networking.firewall.allowedTCPPorts = [80 443];

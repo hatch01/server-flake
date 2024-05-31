@@ -4,7 +4,7 @@
 {
   config,
   pkgs,
-  intpus,
+  inputs,
   ...
 }: {
   imports = [
@@ -92,6 +92,7 @@
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
     git
+    inputs.agenix.packages.${system}.default
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

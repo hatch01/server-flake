@@ -57,6 +57,9 @@
             ./configuration.nix
             agenix.nixosModules.default
           ];
+          specialArgs = {
+            inherit inputs;
+          };
         };
 
         deploy.nodes.jonquille = {
