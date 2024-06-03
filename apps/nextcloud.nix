@@ -51,6 +51,7 @@
           cookbook
           ;
       };
+      extraAppsEnable = true;
     };
   };
 
