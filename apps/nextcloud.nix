@@ -16,13 +16,16 @@
   services = {
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud29;
+      # package = pkgs.nextcloud29;
       hostName = "eymeric.eu";
       autoUpdateApps.enable = true;
       # https = true; # TODO when we have dns
       configureRedis = true;
+      # datadir = ""; # probably needed with raid disk etc
+      database.createLocally = true;
       config = {
         adminpassFile = config.age.secrets.nextcloudAdmin.path;
+        dbtype = "pgsql";
       };
     };
   };
