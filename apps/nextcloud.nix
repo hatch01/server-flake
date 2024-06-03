@@ -27,6 +27,30 @@
         adminpassFile = config.age.secrets.nextcloudAdmin.path;
         dbtype = "pgsql";
       };
+
+      # apps
+      extraApps = {
+        inherit
+          (config.services.nextcloud.package.packages.apps)
+          contacts
+          calendar
+          tasks
+          mail
+          onlyoffice
+          twofactor_webauthn
+          cospend
+          end_to_end_encryption
+          forms
+          groupfolders
+          maps
+          music
+          notes
+          previewgenerator
+          spreed
+          deck
+          cookbook
+          ;
+      };
     };
   };
 
