@@ -23,6 +23,7 @@
       configureRedis = true;
       # datadir = ""; # probably needed with raid disk etc
       database.createLocally = true;
+      maxUploadSize = "10G";
       config = {
         adminpassFile = config.age.secrets.nextcloudAdmin.path;
         dbtype = "pgsql";
