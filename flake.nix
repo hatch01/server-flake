@@ -45,6 +45,7 @@
         })
       ];
     };
+    hostName = "eymeric.eu";
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = [system];
@@ -58,12 +59,12 @@
             agenix.nixosModules.default
           ];
           specialArgs = {
-            inherit inputs;
+            inherit inputs hostName;
           };
         };
 
         deploy.nodes.jonquille = {
-          hostname = "eymeric.eu";
+          hostname =  hostName;
           profiles.system = {
             user = "root";
             sshUser = "root";

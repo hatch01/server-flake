@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  hostName,
   ...
 }: {
   age = {
@@ -10,14 +11,15 @@
         file = ../secrets/nextcloudAdmin.age;
         owner = "nextcloud";
       };
+      onlyofficeKey.file = ../secrets/onlyofficeKey.age;
     };
   };
 
   services = {
     nextcloud = {
+      inherit hostName;
       enable = true;
       # package = pkgs.nextcloud29;
-      hostName = "eymeric.eu";
       autoUpdateApps.enable = true;
       # https = true; # TODO when we have dns
       configureRedis = true;
@@ -53,6 +55,12 @@
           ;
       };
       extraAppsEnable = true;
+    };
+
+    onlyoffice = {
+      enable = true;
+      hostname = "onlyoffice.${hostName}";
+      jwtSecretFile = config.age.secrets.onlyofficeKey.path;
     };
   };
 

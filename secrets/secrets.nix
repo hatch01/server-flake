@@ -6,4 +6,5 @@ in {
   "userPassword.age".publicKeys = all;
   "githubToken.age".publicKeys = all;
   "nextcloudAdmin.age".publicKeys = all;
+  "onlyofficeKey.age".publicKeys = all;
 }
