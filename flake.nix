@@ -8,6 +8,8 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     systems.url = "github:nix-systems/default";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
@@ -50,21 +52,18 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = [system];
 
-      # replace 'joes-desktop' with your hostname here.
       flake = {
-        nixosConfigurations.jonquille = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./configuration.nix
-            agenix.nixosModules.default
-          ];
-          specialArgs = {
-            inherit inputs hostName;
+        nixosConfigurations = {
+          jonquille = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [./configuration.nix ./disko.nix agenix.nixosModules.default];
+            specialArgs = {
+              inherit inputs hostName;
+            };
           };
         };
-
         deploy.nodes.jonquille = {
-          hostname =  hostName;
+          hostname = hostName;
           profiles.system = {
             user = "root";
             sshUser = "root";
