@@ -2,9 +2,7 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }: {
@@ -18,14 +16,14 @@
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/a2cd86a4-2c5f-4111-b5a6-0a2557c0448a";
+    device = "/dev/disk/by-uuid/d3367cac-3ac5-4dcc-9d21-81010feeea17";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/279E-8D46";
+    device = "/dev/disk/by-uuid/CC1C-9382";
     fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
+    options = ["fmask=0077" "dmask=0077"];
   };
 
   swapDevices = [];
