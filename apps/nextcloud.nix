@@ -11,7 +11,10 @@
         file = ../secrets/nextcloudAdmin.age;
         owner = "nextcloud";
       };
-      onlyofficeKey.file = ../secrets/onlyofficeKey.age;
+      onlyofficeKey = {
+        file = ../secrets/onlyofficeKey.age;
+        owner = "onlyoffice";
+      };
     };
   };
 
