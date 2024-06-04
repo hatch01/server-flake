@@ -15,6 +15,8 @@
     apps/gitlab.nix
   ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   age = {
     identityPaths = ["/etc/age/key"];
 
