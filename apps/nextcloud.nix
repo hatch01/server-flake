@@ -2,19 +2,17 @@
   pkgs,
   config,
   hostName,
+  mkSecrets,
   ...
 }: {
-  age = {
-    identityPaths = ["/etc/age/key"];
-    secrets = {
-      nextcloudAdmin = {
-        file = ../secrets/nextcloudAdmin.age;
-        owner = "nextcloud";
-      };
-      onlyofficeKey = {
-        file = ../secrets/onlyofficeKey.age;
-        owner = "onlyoffice";
-      };
+  age.secrets = mkSecrets {
+    nextcloudAdmin = {
+      owner = config.users.users.nextcloud.name;
+      group = config.users.users.nextcloud.name;
+    };
+    onlyofficeKey = {
+      owner = config.users.users.onlyoffice.name;
+      group = config.users.users.onlyoffice.name;
     };
   };
 

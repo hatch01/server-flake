@@ -2,16 +2,12 @@
 {
   config,
   hostName,
+  mkSecret,
   ...
-}: let 
+}: let
   dendritHost = "dendrite.${hostName}";
-in{
-  age.secrets = {
-    dendriteKey = {
-      file = ../secrets/dendriteKey.age;
-      mode = "444";
-    };
-  };
+in {
+  age.secrets = mkSecret "dendriteKey" {mode = "444";};
 
   systemd.services.dendrite = {
     after = ["postgresql.service"];

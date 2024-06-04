@@ -7,14 +7,23 @@
   inputs,
   hostName,
   ...
-}: {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    apps/nextcloud.nix
-    apps/gitlab.nix
-    apps/dendrite.nix
-  ];
+} @ args: let
+  secretsPath = ./secrets;
+  mkSecrets = builtins.mapAttrs (name: value: value // {file = "${secretsPath}/${name}.age";});
+  mkSecret = name: other: mkSecrets {${name} = other;};
+
+  fudgeMyShitIn = builtins.map (file: import file (args // {inherit mkSecret mkSecrets;}));
+in {
+  imports =
+    [
+      # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+    ]
+    ++ fudgeMyShitIn [
+      apps/nextcloud.nix
+      apps/gitlab.nix
+      apps/dendrite.nix
+    ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
