@@ -60,8 +60,13 @@
     onlyoffice = {
       enable = true;
       hostname = "onlyoffice.${hostName}";
-      jwtSecretFile = config.age.secrets.onlyofficeKey.path;
+      # jwtSecretFile = config.age.secrets.onlyofficeKey.path;
     };
+  };
+
+  environment.sessionVariables = {
+    ALLOW_META_IP_ADDRESS = "true";
+    ALLOW_PRIVATE_IP_ADDRESS = "true";
   };
 
   # when we have dns
