@@ -4,15 +4,33 @@
   hostName,
   ...
 }: {
-   age = {
+  age = {
     identityPaths = ["/etc/age/key"];
     secrets = {
-    databasePasswordFile.file = ../secrets/gitlab/databasePasswordFile.age;
-    initialRootPasswordFile.file = ../secrets/gitlab/initialRootPasswordFile.age;
-    secretFile.file = ../secrets/gitlab/secretFile.age;
-    otpFile.file = ../secrets/gitlab/otpFile.age;
-    dbFile.file = ../secrets/gitlab/dbFile.age;
-    jwsFile.file = ../secrets/gitlab/jwsFile.age;
+      databasePasswordFile = {
+        file = ../secrets/gitlab/databasePasswordFile.age;
+        owner = "gitlab";
+      };
+      initialRootPasswordFile = {
+        file = ../secrets/gitlab/initialRootPasswordFile.age;
+        owner = "gitlab";
+      };
+      secretFile = {
+        file = ../secrets/gitlab/secretFile.age;
+        owner = "gitlab";
+      };
+      otpFile = {
+        file = ../secrets/gitlab/otpFile.age;
+        owner = "gitlab";
+      };
+      dbFile = {
+        file = ../secrets/gitlab/dbFile.age;
+        owner = "gitlab";
+      };
+      jwsFile = {
+        file = ../secrets/gitlab/jwsFile.age;
+        owner = "gitlab";
+      };
     };
   };
 
