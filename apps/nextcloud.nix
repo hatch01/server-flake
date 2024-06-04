@@ -18,7 +18,7 @@
   services = {
     nextcloud = {
       inherit hostName;
-      enable = false;
+      enable = true;
       # package = pkgs.nextcloud29;
       autoUpdateApps.enable = true;
       # https = true; # TODO when we have dns
