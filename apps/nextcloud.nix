@@ -81,4 +81,6 @@
   #     ${config.services.nextcloud.hostName}.email = "your-letsencrypt-email@example.com";
   #   };
   # };
+
+  networking.firewall.allowedTCPPorts = [80 443];
 }
