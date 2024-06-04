@@ -13,6 +13,7 @@
     ./hardware-configuration.nix
     apps/nextcloud.nix
     apps/gitlab.nix
+    apps/dendrite.nix
   ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];

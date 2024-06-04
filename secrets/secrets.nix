@@ -7,6 +7,7 @@ in {
   "githubToken.age".publicKeys = all;
   "nextcloudAdmin.age".publicKeys = all;
   "onlyofficeKey.age".publicKeys = all;
+  "dendriteKey.age".publicKeys = all;
   "gitlab/databasePasswordFile.age".publicKeys = all;
   "gitlab/initialRootPasswordFile.age".publicKeys = all;
   "gitlab/secretFile.age".publicKeys = all;
