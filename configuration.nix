@@ -5,6 +5,7 @@
   config,
   pkgs,
   inputs,
+  hostName,
   ...
 }: {
   imports = [
@@ -26,7 +27,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking = {
+    hosts = {
+      "192.168.122.47" = ["${hostName}" "onlyoffice.${hostName}"];
+    };
+  };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary

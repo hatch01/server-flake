@@ -8,8 +8,10 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     systems.url = "github:nix-systems/default";
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
@@ -25,6 +27,7 @@
     nixpkgs,
     agenix,
     deploy-rs,
+    disko,
     self,
     ...
   } @ inputs: let
@@ -56,7 +59,7 @@
         nixosConfigurations = {
           jonquille = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            modules = [./configuration.nix ./disko.nix agenix.nixosModules.default];
+            modules = [./configuration.nix ./disko.nix agenix.nixosModules.default disko.nixosModules.disko];
             specialArgs = {
               inherit inputs hostName;
             };
