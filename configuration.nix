@@ -6,9 +6,10 @@
   pkgs,
   inputs,
   hostName,
+  lib,
   ...
 } @ args: let
-  tunnelId = "2ed4390e-24db-451e-a9d8-e168d0afb6c5";
+  tunnelId = "c9d6cb5f-ad2d-4565-9976-ab2737633442";
   secretsPath = ./secrets;
   mkSecrets = builtins.mapAttrs (name: value: value // {file = "${secretsPath}/${name}.age";});
   mkSecret = name: other: mkSecrets {${name} = other;};
@@ -17,6 +18,7 @@
 in {
   imports =
     [
+      (lib.mkAliasOptionModule ["cfTunnels"] ["services" "cloudflared" "tunnels" tunnelId "ingress"])
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ]

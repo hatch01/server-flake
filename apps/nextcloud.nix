@@ -4,7 +4,10 @@
   hostName,
   mkSecrets,
   ...
-}: {
+}: let
+  nextcloudHost = "nextcloud.${hostName}";
+  onlyofficeHost = "onlyoffice.${hostName}";
+in {
   age.secrets = mkSecrets {
     nextcloudAdmin = {
       owner = config.users.users.nextcloud.name;
@@ -16,9 +19,12 @@
     };
   };
 
+  cfTunnels."${nextcloudHost}" = "http://localhost:80";
+  cfTunnels."${onlyofficeHost}" = "http://localhost:80";
+
   services = {
     nextcloud = {
-      inherit hostName;
+      hostName = nextcloudHost;
       enable = true;
       # package = pkgs.nextcloud29;
       autoUpdateApps.enable = true;
@@ -60,8 +66,8 @@
 
     onlyoffice = {
       enable = true;
-      hostname = "onlyoffice.${hostName}";
-      # jwtSecretFile = config.age.secrets.onlyofficeKey.path;
+      hostname = onlyofficeHost;
+      jwtSecretFile = config.age.secrets.onlyofficeKey.path;
     };
   };
 

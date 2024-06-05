@@ -50,7 +50,7 @@
         })
       ];
     };
-    hostName = "eymeric.eu";
+    hostName = "onyx.ovh";
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = [system];
@@ -66,7 +66,7 @@
           };
         };
         deploy.nodes.jonquille = {
-          hostname = hostName;
+          hostname = "192.168.122.47"; #TODO change this to point to the real domain name
           profiles.system = {
             user = "root";
             sshUser = "root";
