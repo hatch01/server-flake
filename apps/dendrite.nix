@@ -27,6 +27,7 @@ in {
     in {
       enable = true;
       httpPort = 8008;
+      openRegistration = false;
       settings = {
         global = {
           server_name = dendritHost;
