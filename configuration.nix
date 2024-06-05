@@ -8,6 +8,7 @@
   hostName,
   ...
 } @ args: let
+  tunnelId = "2ed4390e-24db-451e-a9d8-e168d0afb6c5";
   secretsPath = ./secrets;
   mkSecrets = builtins.mapAttrs (name: value: value // {file = "${secretsPath}/${name}.age";});
   mkSecret = name: other: mkSecrets {${name} = other;};
@@ -30,9 +31,21 @@ in {
   age = {
     identityPaths = ["/etc/age/key"];
 
-    secrets = {
-      userPassword.file = secrets/userPassword.age;
-      githubToken.file = secrets/githubToken.age;
+    secrets = mkSecrets {
+      userPassword = {};
+      githubToken = {};
+      cloudFlareToken = {
+        owner = "cloudflared";
+        group = "cloudflared";
+      };
+    };
+  };
+
+  services.cloudflared = {
+    enable = true;
+    tunnels.${tunnelId} = {
+      credentialsFile = config.age.secrets.cloudFlareToken.path;
+      default = "http_status:404";
     };
   };
 

@@ -14,4 +14,5 @@ in {
   "gitlab/otpFile.age".publicKeys = all;
   "gitlab/dbFile.age".publicKeys = all;
   "gitlab/jwsFile.age".publicKeys = all;
+  "cloudFlareToken.age".publicKeys = all;
 }
