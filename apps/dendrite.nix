@@ -9,8 +9,6 @@
 in {
   age.secrets = mkSecret "dendriteKey" {mode = "444";};
 
-  cfTunnels."${dendritHost}" = "http://localhost:8008";
-
   systemd.services.dendrite = {
     after = ["postgresql.service"];
     serviceConfig.RestartSec = 10;

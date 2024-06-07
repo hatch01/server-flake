@@ -19,9 +19,6 @@ in {
     };
   };
 
-  cfTunnels."${nextcloudHost}" = "http://localhost:80";
-  cfTunnels."${onlyofficeHost}" = "http://localhost:80";
-
   services = {
     nextcloud = {
       hostName = nextcloudHost;

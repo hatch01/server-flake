@@ -18,7 +18,6 @@
 in {
   imports =
     [
-      (lib.mkAliasOptionModule ["cfTunnels"] ["services" "cloudflared" "tunnels" tunnelId "ingress"])
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ]
@@ -36,18 +35,6 @@ in {
     secrets = mkSecrets {
       userPassword = {};
       githubToken = {};
-      cloudFlareToken = {
-        owner = "cloudflared";
-        group = "cloudflared";
-      };
-    };
-  };
-
-  services.cloudflared = {
-    enable = true;
-    tunnels.${tunnelId} = {
-      credentialsFile = config.age.secrets.cloudFlareToken.path;
-      default = "http_status:404";
     };
   };
 

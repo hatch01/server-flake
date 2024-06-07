@@ -3,7 +3,9 @@
   config,
   hostName,
   ...
-}: {
+}: let
+  gitlabHost = "gitlab.${hostName}";
+in {
   age = {
     identityPaths = ["/etc/age/key"];
     secrets = {
@@ -50,7 +52,7 @@
     enable = true;
     recommendedProxySettings = true;
     virtualHosts = {
-      "gitlab.${hostName}" = {
+      "${gitlabHost}" = {
         locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
       };
     };
