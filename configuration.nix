@@ -5,11 +5,8 @@
   config,
   pkgs,
   inputs,
-  hostName,
-  lib,
   ...
 } @ args: let
-  tunnelId = "c9d6cb5f-ad2d-4565-9976-ab2737633442";
   secretsPath = ./secrets;
   mkSecrets = builtins.mapAttrs (name: value: value // {file = "${secretsPath}/${name}.age";});
   mkSecret = name: other: mkSecrets {${name} = other;};
