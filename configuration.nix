@@ -141,7 +141,6 @@ in {
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    settings.PermitRootLogin = "yes";
   };
 
   # Open ports in the firewall.

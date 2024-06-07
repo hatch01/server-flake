@@ -69,7 +69,7 @@
           hostname = "192.168.122.47"; #TODO change this to point to the real domain name
           profiles.system = {
             user = "root";
-            sshUser = "root";
+            sshUser = "eymeric";
             # remoteBuild = true; # think on it if it is a great option
             path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.jonquille;
           };
