@@ -24,7 +24,10 @@ in {
       apps/dendrite.nix
     ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings = {
+    experimental-features = ["nix-command" "flakes"];
+    trusted-users = ["@wheel"];
+  };
 
   age = {
     identityPaths = ["/etc/age/key"];
@@ -90,7 +93,6 @@ in {
   console.keyMap = "fr";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  nix.trustedUsers = [ "@wheel" ];
   users.users = {
     root = {
       openssh.authorizedKeys.keys = [
@@ -138,6 +140,7 @@ in {
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
+    permitRootLogin = "yes";
   };
 
   # Open ports in the firewall.
