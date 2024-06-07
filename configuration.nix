@@ -90,7 +90,7 @@ in {
   console.keyMap = "fr";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-
+  nix.trustedUsers = [ "@wheel" ];
   users.users = {
     root = {
       openssh.authorizedKeys.keys = [
