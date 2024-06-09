@@ -19,9 +19,10 @@ in {
       ./hardware-configuration.nix
     ]
     ++ fudgeMyShitIn [
-      apps/nextcloud.nix
-      apps/gitlab.nix
-      apps/dendrite.nix
+      ./apps/dendrite.nix
+      ./apps/gitlab.nix
+      ./apps/homepage.nix
+      ./apps./nextcloud.nix
     ];
 
   nix.settings = {
