@@ -66,9 +66,11 @@
           };
         };
         deploy.nodes.jonquille = {
-          hostname = "192.168.122.47"; #TODO change this to point to the real domain name
+          hostname = "onyx.ovh";
           profiles.system = {
+            #look at how not to use ssh root login but pass via sudo
             user = "root";
+            sshUser = "root";
             # remoteBuild = true; # think on it if it is a great option
             path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.jonquille;
           };
