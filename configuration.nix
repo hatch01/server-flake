@@ -5,6 +5,7 @@
   config,
   pkgs,
   inputs,
+  hostName,
   ...
 } @ args: let
   secretsPath = ./secrets;
@@ -19,10 +20,10 @@ in {
       ./hardware-configuration.nix
     ]
     ++ fudgeMyShitIn [
-      ./apps/dendrite.nix
-      ./apps/gitlab.nix
-      ./apps/homepage.nix
-      ./apps./nextcloud.nix
+      apps/dendrite.nix
+      apps/gitlab.nix
+      apps/homepage.nix
+      apps/nextcloud.nix
     ];
 
   nix.settings = {
@@ -64,7 +65,17 @@ in {
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking = {
+    networkmanager.enable = true;
+    hosts = {
+      "192.168.122.47" = [
+        "${hostName}"
+        "nextcloud.${hostName}"
+        "gitlab.${hostName}"
+        "dendrite.${hostName}"
+      ];
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -141,7 +152,9 @@ in {
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    permitRootLogin = "yes";
+    settings = {
+      PermitRootLogin = "yes";
+    };
   };
 
   # Open ports in the firewall.
