@@ -48,11 +48,11 @@ in {
                 "Nextcloud" = {
                   icon = "nextcloud.png";
                   description = "Nextcloud c'est vraiment cool";
-                  href = config.nextcloud.hostName;
-                  siteMonitor = config.nextcloud.hostName;
+                  href = "http://${config.nextcloud.hostName}";
+                  siteMonitor = "http://${config.nextcloud.hostName}";
                   widget = {
                     type = "nextcloud";
-                    url = config.nextcloud.hostName;
+                    url = "http://${config.nextcloud.hostName}";
                     username = "root";
                     password = "{{HOMEPAGE_VAR_NEXTCLOUD_PASS}}";
                   };
@@ -70,8 +70,8 @@ in {
                 "Dendrite" = {
                   icon = "matrix.png";
                   description = "Dendrite c'est vraiment cool";
-                  href = config.dendrite.hostName;
-                  siteMonitor = config.dendrite.hostName;
+                  href = "http://${config.dendrite.hostName}";
+                  siteMonitor = "http://${config.dendrite.hostName}";
                 };
               }
             ];
