@@ -26,6 +26,11 @@ in {
       apps/nextcloud.nix
     ];
 
+  nextcloud.enable = true;
+  onlyoffice.enable = true;
+  dendrite.enable = true;
+  homepage.enable = true;
+
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
     trusted-users = ["@wheel"];
@@ -68,7 +73,7 @@ in {
   networking = {
     networkmanager.enable = true;
     hosts = {
-      "192.168.122.47" = [
+      "127.0.0.1" = [
         "${hostName}"
         "nextcloud.${hostName}"
         "gitlab.${hostName}"
