@@ -21,7 +21,7 @@ in {
     ]
     ++ fudgeMyShitIn [
       apps/dendrite.nix
-      apps/gitlab.nix
+      apps/forgejo.nix
       apps/homepage.nix
       apps/nextcloud.nix
     ];
@@ -29,6 +29,7 @@ in {
   nextcloud.enable = true;
   onlyoffice.enable = true;
   dendrite.enable = true;
+  forgejo.enable = true;
   homepage.enable = true;
 
   nix.settings = {
@@ -76,7 +77,7 @@ in {
       "127.0.0.1" = [
         "${hostName}"
         "nextcloud.${hostName}"
-        "gitlab.${hostName}"
+        "forge.${hostName}"
         "dendrite.${hostName}"
       ];
     };

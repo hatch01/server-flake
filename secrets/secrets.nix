@@ -9,10 +9,4 @@ in {
   "onlyofficeKey.age".publicKeys = all;
   "dendriteKey.age".publicKeys = all;
   "homepage.age".publicKeys = all;
-  "gitlab/databasePasswordFile.age".publicKeys = all;
-  "gitlab/initialRootPasswordFile.age".publicKeys = all;
-  "gitlab/secretFile.age".publicKeys = all;
-  "gitlab/otpFile.age".publicKeys = all;
-  "gitlab/dbFile.age".publicKeys = all;
-  "gitlab/jwsFile.age".publicKeys = all;
 }
