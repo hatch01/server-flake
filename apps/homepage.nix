@@ -77,13 +77,54 @@ in {
                   description = "Dendrite c'est vraiment cool";
                   href = "http://${config.dendrite.hostName}";
                   siteMonitor = "http://${config.dendrite.hostName}";
+                  # TODO complete with a custom api status widget
+                  # widget = {
+                  # }
                 };
               }
             ];
           }
         ];
 
-        widgets = [];
+        widgets = [
+          {
+            datetime = {
+              text_size = "4x1";
+              format = {
+                timeStyle = "medium";
+                dateStyle = "full";
+              };
+            };
+          }
+          {
+            logo.icon = "https://raw.githubusercontent.com/onyx-lyon1/onyx/main/apps/onyx/assets/icon_transparent.png";
+          }
+          {
+            openmeteo = {
+              label = "Lyon";
+              latitute = 45.7779057;
+              longitude = 4.8817357;
+              timezone = "Europe/Paris";
+              units = "metric";
+              cache = 5;
+              format.maximumFractionDigits = 2;
+            };
+          }
+          {
+            resources = {
+              cpu = true;
+              memory = true;
+              disk = ["/dev/disk/by-partlabel/disk-main-root"];
+              cputemp = true;
+              tempmin = 0;
+              tempmax = 100;
+              uptime = true;
+              units = "metric";
+              refresh = 300;
+              diskUnit = "bytes";
+            };
+          }
+        ];
         kubernetes = [];
         docker = [];
         customJS = "";
