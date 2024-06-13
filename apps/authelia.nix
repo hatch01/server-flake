@@ -3,7 +3,6 @@
   config,
   hostName,
   mkSecrets,
-  pkgs,
   ...
 }: let
   inherit (lib) mkEnableOption mkOption mkIf types;
@@ -36,6 +35,10 @@ in {
       groups.authelia = {};
     };
 
+    systemd.services.authelia = {
+      after = ["postgresql.service"];
+    };
+
     services = {
       authelia.instances = {
         main = {
@@ -48,15 +51,22 @@ in {
             theme = "auto";
             default_2fa_method = "webauthn";
             server.disable_healthcheck = true;
+            server.port = 9091;
             log = {
               format = "text"; # for fail2ban better integration
-              file_path = "/var/log/authelia.log";
+              file_path = "/tmp/authelia.log"; # TODO modify to /var/log/authelia.log or something else
               keep_stdout = true; # TODO remove after debug
               level = "debug"; # TODO switch to trace after debug
             };
-            server.port = 9091;
-            # storage use postgres later https://www.authelia.com/configuration/storage/introduction/
-            # https://www.authelia.com/configuration/storage/postgres/
+            storage = {
+              postgres = {
+                host = "/run/postgresql";
+                inherit (config.services.postgresql) port;
+                database = "authelia";
+                username = "authelia";
+                password = "anUnus3dP@ssw0rd"; # thanks copilot for this beautiful password
+              };
+            };
 
             # notifier needed for 2FA and email
             # https://www.authelia.com/configuration/notifications/introduction/
@@ -70,16 +80,38 @@ in {
                 }
               ];
             };
+
             authentication_backend = {
               file = {
-                # TODO switch to a age managed yaml config https://www.authelia.com/reference/guides/passwords/#yaml-format
-                # path =
-                watch = true;
+                # a agenix managed yaml doc : https://www.authelia.com/reference/guides/passwords/#yaml-format
+                path = config.age.secrets.autheliaAuthBackend.path;
+                # watch = true;
                 # letting password hashing settings to the default (argon2id)
+              };
+            };
+
+            session = {
+              domain = hostName;
+            };
+
+            notifier = {
+              filesystem = {
+                filename = "/tmp/notifier";
               };
             };
           };
         };
+      };
+
+      postgresql = {
+        enable = true;
+        ensureDatabases = ["authelia"];
+        ensureUsers = [
+          {
+            name = "authelia";
+            ensureDBOwnership = true;
+          }
+        ];
       };
 
       nginx = {
