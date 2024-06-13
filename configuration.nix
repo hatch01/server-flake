@@ -24,6 +24,7 @@ in {
       apps/forgejo.nix
       apps/homepage.nix
       apps/nextcloud.nix
+      apps/authelia.nix
     ];
 
   nextcloud.enable = true;
@@ -31,6 +32,7 @@ in {
   dendrite.enable = true;
   forgejo.enable = true;
   homepage.enable = true;
+  authelia.enable = true;
 
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];

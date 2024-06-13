@@ -9,4 +9,7 @@ in {
   "onlyofficeKey.age".publicKeys = all;
   "dendriteKey.age".publicKeys = all;
   "homepage.age".publicKeys = all;
+  "autheliaStorageKey.age".publicKeys = all;
+  "autheliaJwtKey.age".publicKeys = all;
+  "autheliaAuthBackend.age".publicKeys = all;
 }
