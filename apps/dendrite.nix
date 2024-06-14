@@ -9,11 +9,18 @@
   inherit (lib) mkEnableOption mkOption mkIf types;
 in {
   options = {
-    dendrite.enable = mkEnableOption "Dendrite";
-    dendrite.hostName = mkOption {
-      type = types.str;
-      default = "dendrite.${hostName}";
-      description = "The hostname of the dendrite server";
+    dendrite = {
+      enable = mkEnableOption "Dendrite";
+      hostName = mkOption {
+        type = types.str;
+        default = "dendrite.${hostName}";
+        description = "The hostname of the dendrite server";
+      };
+      port = mkOption {
+        type = types.int;
+        default = 8008;
+        description = "The port of the dendrite server";
+      };
     };
   };
 
@@ -35,7 +42,7 @@ in {
         };
       in {
         enable = true;
-        httpPort = 8008;
+        httpPort = config.dendrite.port;
         openRegistration = false;
         settings = {
           global = {

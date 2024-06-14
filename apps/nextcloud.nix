@@ -8,10 +8,16 @@
   inherit (lib) mkEnableOption mkOption mkIf types optionalAttrs;
 in {
   options = {
-    nextcloud.enable = mkEnableOption "Nextcloud";
-    nextcloud.hostName = mkOption {
-      type = types.str;
-      default = "nextcloud.${hostName}";
+    nextcloud = {
+      enable = mkEnableOption "Nextcloud";
+      hostName = mkOption {
+        type = types.str;
+        default = "nextcloud.${hostName}";
+      };
+      port = mkOption {
+        type = types.int;
+        default = 443;
+      };
     };
     onlyoffice.enable = mkEnableOption "OnlyOffice";
     onlyoffice.hostName = mkOption {
@@ -86,20 +92,5 @@ in {
         jwtSecretFile = config.age.secrets.onlyofficeKey.path;
       };
     };
-
-    # when we have dns
-    #   services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
-    #   forceSSL = true;
-    #   enableACME = true;
-    # };
-
-    # security.acme = {
-    #   acceptTerms = true;
-    #   certs = {
-    #     ${config.services.nextcloud.hostName}.email = "your-letsencrypt-email@example.com";
-    #   };
-    # };
-
-    networking.firewall.allowedTCPPorts = [80 443];
   };
 }

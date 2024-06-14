@@ -25,6 +25,7 @@ in {
       apps/homepage.nix
       apps/nextcloud.nix
       apps/authelia.nix
+      apps/nginx
     ];
 
   nextcloud.enable = true;
@@ -33,6 +34,10 @@ in {
   forgejo.enable = true;
   homepage.enable = true;
   authelia.enable = true;
+
+  nixpkgs.overlays = [
+    ((import ./overlays/default.nix) inputs)
+  ];
 
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];

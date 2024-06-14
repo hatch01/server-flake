@@ -8,11 +8,18 @@
   inherit (lib) mkEnableOption mkOption mkIf types;
 in {
   options = {
-    forgejo.enable = mkEnableOption "forgejo";
-    forgejo.hostName = mkOption {
-      type = types.str;
-      default = "forge.${hostName}";
-      description = "The hostname of the forgejo instance";
+    forgejo = {
+      enable = mkEnableOption "forgejo";
+      hostName = mkOption {
+        type = types.str;
+        default = "forge.${hostName}";
+        description = "The hostname of the forgejo instance";
+      };
+      port = mkOption {
+        type = types.int;
+        default = 3000;
+        description = "The port on which forgejo will listen";
+      };
     };
   };
 
@@ -34,7 +41,7 @@ in {
 
           server = {
             ROOT_URL = "http://${config.forgejo.hostName}";
-            HTTP_PORT = 3000;
+            HTTP_PORT = config.forgejo.port;
           };
 
           service = {
@@ -59,16 +66,6 @@ in {
           };
         };
       };
-      nginx = {
-        enable = true;
-        recommendedProxySettings = true;
-        virtualHosts = {
-          "${config.forgejo.hostName}" = {
-            locations."/".proxyPass = "http://localhost:3000";
-          };
-        };
-      };
     };
-    networking.firewall.allowedTCPPorts = [80 443];
   };
 }

@@ -23,6 +23,22 @@
         "type": "github"
       }
     },
+    "authelia": {
+      "locked": {
+        "lastModified": 1717702543,
+        "narHash": "sha256-R9FfmEyiMT9q047zRoBt+FraZEwNgt6bu3n6RrOhT1w=",
+        "owner": "nicomem",
+        "repo": "nixpkgs",
+        "rev": "3b0d31f2b0c444aac154b3f53ea958bad6f9aeae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nicomem",
+        "ref": "authelia-4.38",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -176,6 +192,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "authelia": "authelia",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
         "flake-parts": "flake-parts",

@@ -20,6 +20,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.agenix.inputs.darwin.follows = "";
     };
+
+    authelia.url = "github:nicomem/nixpkgs/authelia-4.38";
   };
 
   outputs = {
@@ -71,7 +73,7 @@
             #look at how not to use ssh root login but pass via sudo
             user = "root";
             sshUser = "root";
-            # remoteBuild = true; # think on it if it is a great option
+            remoteBuild = true; # think on it if it is a great option
             path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.jonquille;
           };
         };

@@ -12,4 +12,6 @@ in {
   "autheliaStorageKey.age".publicKeys = all;
   "autheliaJwtKey.age".publicKeys = all;
   "autheliaAuthBackend.age".publicKeys = all;
+  "selfSignedCert.age".publicKeys = all;
+  "selfSignedCertKey.age".publicKeys = all;
 }

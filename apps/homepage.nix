@@ -8,11 +8,18 @@
   inherit (lib) mkEnableOption mkOption mkIf types;
 in {
   options = {
-    homepage.enable = mkEnableOption "Enable homepage";
-    homepage.hostName = mkOption {
-      type = types.str;
-      default = hostName;
-      description = "The hostname of the homepage";
+    homepage = {
+      enable = mkEnableOption "Enable homepage";
+      hostName = mkOption {
+        type = types.str;
+        default = hostName;
+        description = "The hostname of the homepage";
+      };
+      port = mkOption {
+        type = types.int;
+        default = 8082;
+        description = "The port of the homepage";
+      };
     };
   };
 
@@ -29,6 +36,7 @@ in {
         openFirewall = false;
         environmentFile = config.age.secrets.homepage.path;
         bookmarks = [];
+        listenPort = config.homepage.port;
         settings = {
           title = "Onyx Homepage";
           background = "https://images.unsplash.com/photo-1485431142439-206ba3a9383e?q=80&w=1966&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
@@ -48,11 +56,11 @@ in {
                 "Nextcloud" = {
                   icon = "nextcloud.png";
                   description = "Nextcloud c'est vraiment cool";
-                  href = "http://${config.nextcloud.hostName}";
-                  siteMonitor = "http://${config.nextcloud.hostName}";
+                  href = "https://${config.nextcloud.hostName}";
+                  siteMonitor = "https://${config.nextcloud.hostName}";
                   widget = {
                     type = "nextcloud";
-                    url = "http://${config.nextcloud.hostName}";
+                    url = "https://${config.nextcloud.hostName}";
                     username = "root";
                     password = "{{HOMEPAGE_VAR_NEXTCLOUD_PASS}}";
                   };
@@ -62,11 +70,11 @@ in {
                 "forgejo" = {
                   icon = "forgejo.png";
                   description = "forgejo c'est vraiment cool";
-                  href = "http://${config.forgejo.hostName}";
-                  siteMonitor = "http://${config.forgejo.hostName}";
+                  href = "https://${config.forgejo.hostName}";
+                  siteMonitor = "https://${config.forgejo.hostName}";
                   widget = {
                     type = "gitea";
-                    url = "http://${config.forgejo.hostName}";
+                    url = "https://${config.forgejo.hostName}";
                     key = "{{HOMEPAGE_VAR_FORGEJO_KEY}}";
                   };
                 };
@@ -75,8 +83,8 @@ in {
                 "Dendrite" = {
                   icon = "matrix.png";
                   description = "Dendrite c'est vraiment cool";
-                  href = "http://${config.dendrite.hostName}";
-                  siteMonitor = "http://${config.dendrite.hostName}";
+                  href = "https://${config.dendrite.hostName}";
+                  siteMonitor = "https://${config.dendrite.hostName}";
                   # TODO complete with a custom api status widget
                   # widget = {
                   # }
@@ -130,17 +138,6 @@ in {
         customJS = "";
         customCSS = "";
       };
-
-      nginx = {
-        enable = true;
-        recommendedProxySettings = true;
-        virtualHosts = {
-          "${config.homepage.hostName}" = {
-            locations."/".proxyPass = "http://localhost:8082";
-          };
-        };
-      };
     };
-    networking.firewall.allowedTCPPorts = [80 443];
   };
 }
