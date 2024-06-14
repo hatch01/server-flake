@@ -2,7 +2,6 @@
   config,
   hostName,
   mkSecrets,
-  mkSecret,
   lib,
   ...
 }: let
@@ -23,11 +22,11 @@ in {
 
   config = {
     age.secrets = mkSecrets {
-      nextcloudAdmin = optionalAttrs true {
+      nextcloudAdmin = optionalAttrs config.nextcloud.enable {
         owner = config.users.users.nextcloud.name;
         group = config.users.users.nextcloud.name;
       };
-      onlyofficeKey = optionalAttrs true {
+      onlyofficeKey = optionalAttrs config.onlyoffice.enable {
         owner = config.users.users.onlyoffice.name;
         group = config.users.users.onlyoffice.name;
       };
