@@ -6,7 +6,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption mkIf types;
+  inherit (lib) mkEnableOption mkOption mkIf optionals types;
   autheliaInstance = "main";
 in {
   options = {
@@ -177,7 +177,9 @@ in {
               #     key = ''{{ secret "${config.age.secrets.autheliaOauth2PrivateKey.path}" | mindent 10 "|" | msquote }}'';
               #   }
               # ];
-              clients = [
+              clients =
+                []
+                ++ optionals config.nextcloud.enable [
                 {
                   client_name = "NextCloud";
                   client_id = "nextcloud";
