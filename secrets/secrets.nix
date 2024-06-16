@@ -6,12 +6,15 @@ in {
   "userPassword.age".publicKeys = all;
   "githubToken.age".publicKeys = all;
   "nextcloudAdmin.age".publicKeys = all;
+  "nextcloudSecretFile.age".publicKeys = all;
   "onlyofficeKey.age".publicKeys = all;
   "dendriteKey.age".publicKeys = all;
   "homepage.age".publicKeys = all;
+  "selfSignedCert.age".publicKeys = all;
+  "selfSignedCertKey.age".publicKeys = all;
+
   "autheliaStorageKey.age".publicKeys = all;
   "autheliaJwtKey.age".publicKeys = all;
   "autheliaAuthBackend.age".publicKeys = all;
-  "selfSignedCert.age".publicKeys = all;
-  "selfSignedCertKey.age".publicKeys = all;
+  "autheliaOauth2PrivateKey.age".publicKeys = all;
 }

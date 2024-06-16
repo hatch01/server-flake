@@ -85,7 +85,6 @@ in {
             "/".proxyPass = authUrl;
             "/api/verify".proxyPass = authUrl;
             "/api/authz".proxyPass = authUrl;
-
           };
         };
       };

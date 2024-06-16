@@ -7,6 +7,7 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkOption mkIf types;
+  autheliaInstance = "main";
 in {
   options = {
     authelia = {
@@ -34,6 +35,7 @@ in {
         autheliaStorageKey = cfg;
         autheliaJwtKey = cfg;
         autheliaAuthBackend = cfg;
+        autheliaOauth2PrivateKey = cfg;
       };
     users = {
       users.authelia = {
@@ -46,16 +48,37 @@ in {
     systemd.services.authelia = {
       after = ["postgresql.service"];
     };
+    systemd.services."authelia-${autheliaInstance}" = {
+      environment = {
+        # needed to set the secrets using agenix see: https://www.authelia.com/configuration/methods/files/#file-filters
+        X_AUTHELIA_CONFIG_FILTERS = "template";
+      };
+    };
 
     services = {
       authelia.instances = {
-        main = {
+        "${autheliaInstance}" = {
           enable = true;
           package = pkgs.prs.authelia;
           user = "authelia";
           group = "authelia";
-          secrets.storageEncryptionKeyFile = config.age.secrets.autheliaStorageKey.path;
-          secrets.jwtSecretFile = config.age.secrets.autheliaJwtKey.path;
+
+          secrets = {
+            storageEncryptionKeyFile = config.age.secrets.autheliaStorageKey.path;
+            jwtSecretFile = config.age.secrets.autheliaJwtKey.path;
+          };
+
+          settingsFiles = [
+            # neet to write this in plain text because nix to yaml is doing some weird stuff
+            # see https://github.com/NixOS/nixpkgs/pull/299309 for details
+            (builtins.toFile
+              "authelia_id_provider_key.yaml"
+              ''                identity_providers:
+                  oidc:
+                    jwks:
+                    - key: {{ secret "/run/agenix/autheliaOauth2PrivateKey" | mindent 10 "|" | msquote }}'')
+          ];
+
           settings = {
             theme = "auto";
             default_2fa_method = "webauthn";
@@ -74,7 +97,7 @@ in {
             log = {
               format = "text"; # for fail2ban better integration
               file_path = "/tmp/authelia.log"; # TODO modify to /var/log/authelia.log or something else
-              keep_stdout = true; # TODO remove after debug
+              keep_stdout = true;
               level = "debug"; # TODO switch to trace after debug
             };
             storage = {
@@ -96,7 +119,6 @@ in {
                   networks = ["192.168.0.0/18"];
                 }
               ];
-              # TODO add rule for local network to bypass 2FA
               rules = [
                 {
                   domain = "*.${hostName}";
@@ -137,6 +159,37 @@ in {
               filesystem = {
                 filename = "/tmp/notifier";
               };
+            };
+
+            identity_providers.oidc = {
+              # enable to make it working so using settingsFiles (look above)
+              # jwks = [
+              #   {
+              #     key_id = "main";
+              #     key = ''{{ secret "${config.age.secrets.autheliaOauth2PrivateKey.path}" | mindent 10 "|" | msquote }}'';
+              #   }
+              # ];
+              clients = [
+                {
+                  client_name = "NextCloud";
+                  client_id = "nextcloud";
+                  # the client secret is a random hash so don't worry about it
+                  client_secret = "$pbkdf2-sha512$310000$NqCsT52TLWKH2GOq1c7vyw$ObxsUBEcwK53BY8obKj7fjmk1xp4MnTYCc2kS9UKpKifVGOQczt4rQx0bWt5pInqpAKxGHXo/RGa7DolDugz2A";
+                  public = false;
+                  authorization_policy = "two_factor";
+                  require_pkce = true;
+                  pkce_challenge_method = "S256";
+                  redirect_uris = ["https://${config.nextcloud.hostName}/apps/oidc_login/oidc"];
+                  scopes = [
+                    "openid"
+                    "profile"
+                    "email"
+                    "groups"
+                  ];
+                  userinfo_signed_response_alg = "none";
+                  token_endpoint_auth_method = "client_secret_basic";
+                }
+              ];
             };
           };
         };
