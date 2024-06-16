@@ -90,6 +90,20 @@ in {
               timeout = "60s";
             };
 
+            totp = {
+              disable = false;
+              issuer = "authelia.com";
+              algorithm = "sha1";
+              digits = 6;
+              period = 30;
+              skew = 1;
+              secret_size = 32;
+              allowed_algorithms = ["SHA1"];
+              allowed_digits = [6];
+              allowed_periods = [30];
+              disable_reuse_security_policy = false;
+            };
+
             server = {
               disable_healthcheck = true;
               # address = "localhost:${toString config.authelia.port}";
