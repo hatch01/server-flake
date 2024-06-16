@@ -1,3 +1,5 @@
+# TODO switch to synapse for SSO and more examples
+
 # 👀 https://github.com/uku3lig/flake/blob/main/systems/etna/dendrite.nix
 {
   config,
