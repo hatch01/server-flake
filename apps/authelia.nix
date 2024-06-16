@@ -82,6 +82,14 @@ in {
           settings = {
             theme = "auto";
             default_2fa_method = "webauthn";
+            webauthn = {
+              disable = false;
+              display_name = "Authelia";
+              attestation_conveyance_preference = "indirect";
+              user_verification = "preferred";
+              timeout = "60s";
+            };
+
             server = {
               disable_healthcheck = true;
               # address = "localhost:${toString config.authelia.port}";
