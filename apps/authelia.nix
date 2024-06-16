@@ -81,6 +81,7 @@ in {
 
           settings = {
             theme = "auto";
+            
             default_2fa_method = "webauthn";
             webauthn = {
               disable = false;
@@ -104,10 +105,12 @@ in {
               disable_reuse_security_policy = false;
             };
 
+            # TODO add duo configuration later
+
             server = {
               disable_healthcheck = true;
-              # address = "localhost:${toString config.authelia.port}";
-              port = config.authelia.port; # TODO migrate to address
+              port = config.authelia.port; # TODO migrate to address when the pr is merged
+              # address = "tcp://localhost:${toString config.authelia.port}/";
               endpoints = {
                 authz = {
                   auth-request = {
