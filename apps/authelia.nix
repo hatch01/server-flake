@@ -4,6 +4,7 @@
   hostName,
   mkSecrets,
   pkgs,
+  inputs,
   ...
 }: let
   inherit (lib) mkEnableOption mkOption mkIf optionals types;
@@ -24,6 +25,14 @@ in {
       };
     };
   };
+
+  disabledModules = [
+    "services/security/authelia.nix"
+  ];
+  imports = [
+    "${inputs.authelia}/nixos/modules/services/security/authelia.nix"
+  ];
+
   config = mkIf config.authelia.enable {
     age.secrets = let
       cfg = {
@@ -83,7 +92,7 @@ in {
 
           settings = {
             theme = "auto";
-            
+
             default_2fa_method = "webauthn";
             webauthn = {
               disable = false;
@@ -111,8 +120,7 @@ in {
 
             server = {
               disable_healthcheck = true;
-              port = config.authelia.port; # TODO migrate to address when the pr is merged
-              # address = "tcp://localhost:${toString config.authelia.port}/";
+              address = "tcp://:${toString config.authelia.port}/";
               endpoints = {
                 authz = {
                   auth-request = {
@@ -210,26 +218,26 @@ in {
               clients =
                 []
                 ++ optionals config.nextcloud.enable [
-                {
-                  client_name = "NextCloud";
-                  client_id = "nextcloud";
-                  # the client secret is a random hash so don't worry about it
-                  client_secret = "$pbkdf2-sha512$310000$NqCsT52TLWKH2GOq1c7vyw$ObxsUBEcwK53BY8obKj7fjmk1xp4MnTYCc2kS9UKpKifVGOQczt4rQx0bWt5pInqpAKxGHXo/RGa7DolDugz2A";
-                  public = false;
-                  authorization_policy = "two_factor";
-                  require_pkce = true;
-                  pkce_challenge_method = "S256";
-                  redirect_uris = ["https://${config.nextcloud.hostName}/apps/oidc_login/oidc"];
-                  scopes = [
-                    "openid"
-                    "profile"
-                    "email"
-                    "groups"
-                  ];
-                  userinfo_signed_response_alg = "none";
-                  token_endpoint_auth_method = "client_secret_basic";
-                }
-              ];
+                  {
+                    client_name = "NextCloud";
+                    client_id = "nextcloud";
+                    # the client secret is a random hash so don't worry about it
+                    client_secret = "$pbkdf2-sha512$310000$NqCsT52TLWKH2GOq1c7vyw$ObxsUBEcwK53BY8obKj7fjmk1xp4MnTYCc2kS9UKpKifVGOQczt4rQx0bWt5pInqpAKxGHXo/RGa7DolDugz2A";
+                    public = false;
+                    authorization_policy = "two_factor";
+                    require_pkce = true;
+                    pkce_challenge_method = "S256";
+                    redirect_uris = ["https://${config.nextcloud.hostName}/apps/oidc_login/oidc"];
+                    scopes = [
+                      "openid"
+                      "profile"
+                      "email"
+                      "groups"
+                    ];
+                    userinfo_signed_response_alg = "none";
+                    token_endpoint_auth_method = "client_secret_basic";
+                  }
+                ];
             };
           };
         };
