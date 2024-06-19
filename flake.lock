@@ -25,11 +25,11 @@
     },
     "authelia": {
       "locked": {
-        "lastModified": 1717702543,
-        "narHash": "sha256-R9FfmEyiMT9q047zRoBt+FraZEwNgt6bu3n6RrOhT1w=",
+        "lastModified": 1718813667,
+        "narHash": "sha256-EOpbHP6gwu1PhLzMpuAS5apfxv/aByv89Y/v7rRegCg=",
         "owner": "nicomem",
         "repo": "nixpkgs",
-        "rev": "3b0d31f2b0c444aac154b3f53ea958bad6f9aeae",
+        "rev": "ebf1c565b9db12c03cea3e960d0bdd51df328255",
         "type": "github"
       },
       "original": {
