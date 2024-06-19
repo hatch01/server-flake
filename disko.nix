@@ -7,6 +7,11 @@
         content = {
           type = "gpt";
           partitions = {
+            boot = {
+              size = "1M";
+              type = "EF02"; # for grub MBR
+              priority = 1; # Needs to be first partition
+            };
             ESP = {
               type = "EF00";
               size = "500M";
@@ -16,8 +21,16 @@
                 mountpoint = "/boot";
               };
             };
-            root = {
-              size = "100%";
+            nix = {
+              size = "25%";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/nix";
+              };
+            };
+            data = {
+              size = "75%";
               content = {
                 type = "filesystem";
                 format = "ext4";
@@ -27,6 +40,14 @@
           };
         };
       };
+    };
+    nodev."/" = {
+      fsType = "tmpfs";
+      mountOptions = [
+        "size=2G"
+        "defaults"
+        "mode=755"
+      ];
     };
   };
 }
