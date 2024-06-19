@@ -36,6 +36,7 @@ in {
         autheliaJwtKey = cfg;
         autheliaAuthBackend = cfg;
         autheliaOauth2PrivateKey = cfg;
+        autheliaSmtpPassword = cfg;
       };
     users = {
       users.authelia = {
@@ -52,6 +53,7 @@ in {
       environment = {
         # needed to set the secrets using agenix see: https://www.authelia.com/configuration/methods/files/#file-filters
         X_AUTHELIA_CONFIG_FILTERS = "template";
+        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.age.secrets.autheliaSmtpPassword.path;
       };
     };
 
@@ -136,6 +138,23 @@ in {
 
             # notifier needed for 2FA and email
             # https://www.authelia.com/configuration/notifications/introduction/
+            notifier = {
+              disable_startup_check = false;
+              smtp = {
+                # using 587 port which is unencrypted I know but did not manage to make it working with 465
+                # however this is very unprobable that someone will sniff the network
+                address = "smtp://smtp.free.fr:587";
+                timeout = "60s";
+                username = "eymeric.monitoring";
+                sender = "Authelia <authelia@onyx.ovh>";
+                subject = "[Authelia] {title}";
+                startup_check_address = "eymericdechelette@gmail.com";
+                disable_require_tls = false;
+                disable_starttls = false;
+                disable_html_emails = false;
+              };
+            };
+
             access_control = {
               default_policy = "deny";
               networks = [
@@ -178,12 +197,6 @@ in {
                   default_redirection_url = "https://${hostName}";
                 }
               ];
-            };
-
-            notifier = {
-              filesystem = {
-                filename = "/tmp/notifier";
-              };
             };
 
             identity_providers.oidc = {

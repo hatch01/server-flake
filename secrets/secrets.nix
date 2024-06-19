@@ -17,4 +17,5 @@ in {
   "autheliaJwtKey.age".publicKeys = all;
   "autheliaAuthBackend.age".publicKeys = all;
   "autheliaOauth2PrivateKey.age".publicKeys = all;
+  "autheliaSmtpPassword.age".publicKeys = all;
 }
