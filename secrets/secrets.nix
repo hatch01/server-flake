@@ -12,10 +12,10 @@ in {
   "homepage.age".publicKeys = all;
   "selfSignedCert.age".publicKeys = all;
   "selfSignedCertKey.age".publicKeys = all;
+  "smtpPassword.age".publicKeys = all;
 
   "autheliaStorageKey.age".publicKeys = all;
   "autheliaJwtKey.age".publicKeys = all;
   "autheliaAuthBackend.age".publicKeys = all;
   "autheliaOauth2PrivateKey.age".publicKeys = all;
-  "autheliaSmtpPassword.age".publicKeys = all;
 }

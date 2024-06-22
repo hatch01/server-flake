@@ -45,12 +45,12 @@ in {
         autheliaJwtKey = cfg;
         autheliaAuthBackend = cfg;
         autheliaOauth2PrivateKey = cfg;
-        autheliaSmtpPassword = cfg;
       };
     users = {
       users.authelia = {
         isSystemUser = true;
         group = "authelia";
+        extraGroups = ["smtp"];
       };
       groups.authelia = {};
     };
@@ -62,7 +62,7 @@ in {
       environment = {
         # needed to set the secrets using agenix see: https://www.authelia.com/configuration/methods/files/#file-filters
         X_AUTHELIA_CONFIG_FILTERS = "template";
-        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.age.secrets.autheliaSmtpPassword.path;
+        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.age.secrets.smtpPassword.path;
       };
     };
 
