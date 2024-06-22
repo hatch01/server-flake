@@ -20,6 +20,7 @@ in {
   "gitlab/otpFile.age".publicKeys = all;
   "gitlab/dbFile.age".publicKeys = all;
   "gitlab/jwsFile.age".publicKeys = all;
+  "gitlab/openIdKey.age".publicKeys = all;
 
   "authelia/storageKey.age".publicKeys = all;
   "authelia/jwtKey.age".publicKeys = all;

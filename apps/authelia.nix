@@ -236,27 +236,28 @@ in {
                     userinfo_signed_response_alg = "none";
                     token_endpoint_auth_method = "client_secret_basic";
                   }
+                ]
+                ++ optionals config.gitlab.enable [
+                  {
+                    client_name = "GitLab";
+                    client_id = "gitlab";
+                    # the client secret is a random hash so don't worry about it
+                    client_secret = "$pbkdf2-sha512$310000$rSqyDXxdbAKVa46e7tdWWg$Go0EtABXJpe9oJuJboomLc/g31Dho5QqT3Hs954WPAYLKv2GKmPlclvPZb.0tq1dLVQHBbOG66hQvFh1kpOt7g";
+                    public = false;
+                    authorization_policy = "two_factor";
+                    require_pkce = true;
+                    pkce_challenge_method = "S256";
+                    redirect_uris = ["https://${config.gitlab.hostName}/users/auth/openid_connect/callback"];
+                    scopes = [
+                      "openid"
+                      "profile"
+                      "groups"
+                      "email"
+                    ];
+                    userinfo_signed_response_alg = "none";
+                    token_endpoint_auth_method = "client_secret_basic";
+                  }
                 ];
-              # ++ optionals config.forgejo.enable [
-              #   {
-              #     client_name = "ForgeJo";
-              #     client_id = "forgejo";
-              #     # the client secret is a random hash so don't worry about it
-              #     client_secret = "$pbkdf2-sha512$310000$jAxIrXngW2jjMKRBnWLXDw$4/Fd0/GZTFEg2m85Xfpl3rcGd5qe9rJWWFtMuXQ9J11J1zocT2xIcN5H5ALSG.OAdHEVW0Yn7btLKlgdEh8HNw";
-              #     public = false;
-              #     authorization_policy = "two_factor";
-              #     require_pkce = true;
-              #     pkce_challenge_method = "S256";
-              #     redirect_uris = ["https://${config.forgejo.hostName}/user/oauth2/authelia/callback"];
-              #     scopes = [
-              #       "openid"
-              #       "profile"
-              #       "email"
-              #     ];
-              #     userinfo_signed_response_alg = "none";
-              #     token_endpoint_auth_method = "client_secret_basic";
-              #   }
-              # ];
             };
           };
         };
