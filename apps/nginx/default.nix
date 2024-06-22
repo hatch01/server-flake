@@ -5,7 +5,7 @@
   mkSecrets,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption mkIf types;
+  inherit (lib) mkIf;
 in {
   config = {
     age.secrets = let

@@ -10,18 +10,19 @@ in {
   "onlyofficeKey.age".publicKeys = all;
   "dendriteKey.age".publicKeys = all;
   "homepage.age".publicKeys = all;
+  "selfSignedCert.age".publicKeys = all;
+  "selfSignedCertKey.age".publicKeys = all;
+  "smtpPassword.age".publicKeys = all;
+
   "gitlab/databasePasswordFile.age".publicKeys = all;
   "gitlab/initialRootPasswordFile.age".publicKeys = all;
   "gitlab/secretFile.age".publicKeys = all;
   "gitlab/otpFile.age".publicKeys = all;
   "gitlab/dbFile.age".publicKeys = all;
   "gitlab/jwsFile.age".publicKeys = all;
-  "selfSignedCert.age".publicKeys = all;
-  "selfSignedCertKey.age".publicKeys = all;
-  "smtpPassword.age".publicKeys = all;
 
-  "autheliaStorageKey.age".publicKeys = all;
-  "autheliaJwtKey.age".publicKeys = all;
-  "autheliaAuthBackend.age".publicKeys = all;
-  "autheliaOauth2PrivateKey.age".publicKeys = all;
+  "authelia/storageKey.age".publicKeys = all;
+  "authelia/jwtKey.age".publicKeys = all;
+  "authelia/authBackend.age".publicKeys = all;
+  "authelia/oAuth2PrivateKey.age".publicKeys = all;
 }
