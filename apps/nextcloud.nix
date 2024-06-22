@@ -99,7 +99,16 @@ in {
         appstoreEnable = true;
 
         settings =
-          {}
+          {
+            mail_from_address = "nextcloud";
+            mail_smtpmode = "smtp";
+            mail_sendmailmode = "smtp";
+            mail_domain = "onyx.ovh";
+            mail_smtphost = "mtp.free.fr";
+            mail_smtpauth = 1;
+            mail_smtpport = 587;
+            mail_smtpname = "eymeric.monitoring";
+          }
           // mkIf config.authelia.enable {
             user_oidc = {
               single_logout = false;
@@ -139,7 +148,9 @@ in {
             oidc_login_update_avatar = false;
             oidc_login_code_challenge_method = "S256";
           };
-        # secret file currectly only used to provide oidc_login_client_secret for authelia
+        # secret file currectly only used to provide: 
+        # - oidc_login_client_secret for authelia
+        # - mail_smtppassword for mail
         secretFile = mkIf config.authelia.enable config.age.secrets.nextcloudSecretFile.path;
       };
 
