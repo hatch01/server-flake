@@ -41,10 +41,10 @@ in {
       };
     in
       mkSecrets {
-        autheliaStorageKey = cfg;
-        autheliaJwtKey = cfg;
-        autheliaAuthBackend = cfg;
-        autheliaOauth2PrivateKey = cfg;
+        "authelia/storageKey" = cfg;
+        "authelia/jwtKey" = cfg;
+        "authelia/authBackend" = cfg;
+        "authelia/oAuth2PrivateKey" = cfg;
       };
     users = {
       users.authelia = {
@@ -75,8 +75,8 @@ in {
           group = "authelia";
 
           secrets = {
-            storageEncryptionKeyFile = config.age.secrets.autheliaStorageKey.path;
-            jwtSecretFile = config.age.secrets.autheliaJwtKey.path;
+            storageEncryptionKeyFile = config.age.secrets."authelia/storageKey".path;
+            jwtSecretFile = config.age.secrets."authelia/jwtKey".path;
           };
 
           settingsFiles = [
@@ -87,7 +87,7 @@ in {
               ''                identity_providers:
                   oidc:
                     jwks:
-                    - key: {{ secret "/run/agenix/autheliaOauth2PrivateKey" | mindent 10 "|" | msquote }}'')
+                    - key: {{ secret "/run/agenix/authelia/oAuth2PrivateKey" | mindent 10 "|" | msquote }}'')
           ];
 
           settings = {
@@ -191,7 +191,7 @@ in {
             authentication_backend = {
               file = {
                 # a agenix managed yaml doc : https://www.authelia.com/reference/guides/passwords/#yaml-format
-                path = config.age.secrets.autheliaAuthBackend.path;
+                path = config.age.secrets."authelia/authBackend".path;
                 # letting password hashing settings to the default (argon2id)
               };
             };
@@ -211,7 +211,7 @@ in {
               # jwks = [
               #   {
               #     key_id = "main";
-              #     key = ''{{ secret "${config.age.secrets.autheliaOauth2PrivateKey.path}" | mindent 10 "|" | msquote }}'';
+              #     key = ''{{ secret "${config.age.secrets."authelia/oAuth2PrivateKey".path}" | mindent 10 "|" | msquote }}'';
               #   }
               # ];
               clients =
