@@ -70,8 +70,8 @@ in {
                 "Gitlab" = {
                   icon = "gitlab.png";
                   description = "Gitlab c'est vraiment cool";
-                  href = "http://gitlab.${hostName}/";
-                  siteMonitor = "http://gitlab.${hostName}/";
+                  href = "https://${config.gitlab.hostName}/";
+                  siteMonitor = "https://${config.gitlab.hostName}/";
                 };
               }
               {
