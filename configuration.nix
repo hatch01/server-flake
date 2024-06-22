@@ -163,7 +163,6 @@ etI/ted5AZ9f
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII8szPPvvc4T9fsIR876a51XTWqSjtLZaYNmH++zQzNs eymericdechelette@gmail.com"
         ];
-        packages = with pkgs; [];
       };
     };
     groups.smtp = {};
