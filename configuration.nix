@@ -21,7 +21,7 @@ in {
     ]
     ++ fudgeMyShitIn [
       apps/dendrite.nix
-      apps/forgejo.nix
+      apps/gitlab.nix
       apps/homepage.nix
       apps/nextcloud.nix
       apps/authelia.nix
@@ -31,9 +31,9 @@ in {
   nextcloud.enable = true;
   onlyoffice.enable = true;
   dendrite.enable = true;
-  forgejo.enable = true;
   homepage.enable = true;
   authelia.enable = true;
+  gitlab.enable = true;
 
   security.pki.certificates = [
     ''-----BEGIN CERTIFICATE-----
@@ -114,7 +114,7 @@ etI/ted5AZ9f
       "127.0.0.1" = [
         "${hostName}"
         "nextcloud.${hostName}"
-        "forge.${hostName}"
+        "gitlab.${hostName}"
         "dendrite.${hostName}"
       ];
     };

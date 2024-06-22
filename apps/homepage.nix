@@ -67,16 +67,11 @@ in {
                 };
               }
               {
-                "forgejo" = {
-                  icon = "forgejo.png";
-                  description = "forgejo c'est vraiment cool";
-                  href = "https://${config.forgejo.hostName}";
-                  siteMonitor = "https://${config.forgejo.hostName}";
-                  widget = {
-                    type = "gitea";
-                    url = "https://${config.forgejo.hostName}";
-                    key = "{{HOMEPAGE_VAR_FORGEJO_KEY}}";
-                  };
+                "Gitlab" = {
+                  icon = "gitlab.png";
+                  description = "Gitlab c'est vraiment cool";
+                  href = "http://gitlab.${hostName}/";
+                  siteMonitor = "http://gitlab.${hostName}/";
                 };
               }
               {

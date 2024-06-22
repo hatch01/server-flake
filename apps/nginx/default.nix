@@ -68,9 +68,9 @@ in {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
         };
 
-        ${config.forgejo.hostName} = mkIf config.forgejo.enable {
+        ${config.gitlab.hostName} = mkIf config.gitlab.enable {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
-          locations."/".proxyPass = "http://localhost:${toString config.forgejo.port}";
+          locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
         };
         ${config.dendrite.hostName} = mkIf config.dendrite.enable {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
