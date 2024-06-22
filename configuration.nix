@@ -18,6 +18,7 @@ in {
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./unfree.nix
     ]
     ++ fudgeMyShitIn [
       apps/dendrite.nix
@@ -179,9 +180,6 @@ in {
     };
     groups.smtp = {};
   };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
