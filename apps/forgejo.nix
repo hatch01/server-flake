@@ -44,8 +44,16 @@ in {
             HTTP_PORT = config.forgejo.port;
           };
 
+          openid = {
+            ENABLE_OPENID_SIGNIN = false;
+            ENABLE_OPENID_SIGNUP = true;
+            WHITELISTED_URIS = config.authelia.hostName;
+          };
+
           service = {
-            DISABLE_REGISTRATION = true;
+            DISABLE_REGISTRATION = false;
+            ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
+            SHOW_REGISTRATION_BUTTON = false;
             ENABLE_CAPTCHA = true;
           };
 

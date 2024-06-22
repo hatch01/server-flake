@@ -236,6 +236,26 @@ in {
                     userinfo_signed_response_alg = "none";
                     token_endpoint_auth_method = "client_secret_basic";
                   }
+                ]
+                ++ optionals config.forgejo.enable [
+                  {
+                    client_name = "ForgeJo";
+                    client_id = "forgejo";
+                    # the client secret is a random hash so don't worry about it
+                    client_secret = "$pbkdf2-sha512$310000$jAxIrXngW2jjMKRBnWLXDw$4/Fd0/GZTFEg2m85Xfpl3rcGd5qe9rJWWFtMuXQ9J11J1zocT2xIcN5H5ALSG.OAdHEVW0Yn7btLKlgdEh8HNw";
+                    public = false;
+                    authorization_policy = "two_factor";
+                    require_pkce = true;
+                    pkce_challenge_method = "S256";
+                    redirect_uris = ["https://${config.forgejo.hostName}/user/oauth2/authelia/callback"];
+                    scopes = [
+                      "openid"
+                      "profile"
+                      "email"
+                    ];
+                    userinfo_signed_response_alg = "none";
+                    token_endpoint_auth_method = "client_secret_basic";
+                  }
                 ];
             };
           };
