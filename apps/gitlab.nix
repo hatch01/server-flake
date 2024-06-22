@@ -36,6 +36,8 @@ in {
         "gitlab/openIdKey" = cfg;
       };
 
+    users.users.gitlab.extraGroups = ["smtp"];
+
     services.gitlab = {
       enable = true;
       host = config.gitlab.hostName;
@@ -47,7 +49,23 @@ in {
         dbFile = config.age.secrets."gitlab/dbFile".path;
         jwsFile = config.age.secrets."gitlab/jwsFile".path;
       };
+
+      smtp = {
+        enable = true;
+        address = "smtp.free.fr";
+        port = 587;
+        username = "eymeric.monitoring";
+        passwordFile = config.age.secrets.smtpPassword.path;
+      };
+
       extraConfig = {
+        gitlab = {
+          email_from = "gitlab@onyx.ovh";
+          email_display_name = "GitLab";
+          email_reply_to = "gitlab@onyx.ovh";
+        };
+
+        # Authelia configuration
         omniauth = {
           enabled = true;
           auto_sign_in_with_provider = "openid_connect";
