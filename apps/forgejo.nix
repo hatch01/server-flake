@@ -24,6 +24,8 @@ in {
   };
 
   config = mkIf config.forgejo.enable {
+    users.users.forgejo.extraGroups = ["forgejo" "smtp"];
+
     services = {
       openssh = {
         enable = true;
@@ -36,11 +38,13 @@ in {
           createDatabase = true;
         };
 
+        mailerPasswordFile = config.age.secrets.smtpPassword.path;
+
         settings = {
           DEFAULT.APP_NAME = "Onyx Forge";
 
           server = {
-            ROOT_URL = "http://${config.forgejo.hostName}";
+            ROOT_URL = "https://${config.forgejo.hostName}";
             HTTP_PORT = config.forgejo.port;
           };
 
@@ -55,6 +59,18 @@ in {
             ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
             SHOW_REGISTRATION_BUTTON = false;
             ENABLE_CAPTCHA = true;
+          };
+
+          mailer = {
+            ENABLED = true;
+            PROTOCOL = "smtps";
+            FORCE_TRUST_SERVER_CERT = true;
+            SMTP_ADDR = "smtp.free.fr";
+            SMTP_PORT = 587;
+            USER = "eymeric.monitoring";
+            FROM = "ForgeJo <forgejo@onyx.ovh>";
+            # PASSWD = "#0LtshV_vAe1%*tU";
+            # ENVELOPE_FROM = "<>";
           };
 
           oauth2 = {
