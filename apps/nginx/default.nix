@@ -40,7 +40,7 @@ in {
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
       recommendedTlsSettings = true;
-      additionalModules = with pkgs.nginxModules; [ modsecurity ];
+      additionalModules = with pkgs.nginxModules; [modsecurity];
       virtualHosts = let
         cfg = {
           forceSSL = true;
