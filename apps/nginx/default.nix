@@ -81,6 +81,10 @@ in {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
           locations."/".proxyPass = "http://localhost:${toString config.dendrite.port}";
         };
+        ${config.netdata.hostName} = mkIf config.netdata.enable {
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
+          locations."/".proxyPass = "http://localhost:${toString config.netdata.port}";
+        };
 
         ${config.authelia.hostName} = mkIf config.authelia.enable {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
