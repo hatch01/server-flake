@@ -3,6 +3,7 @@
   lib,
   hostName,
   mkSecrets,
+  pkgs,
   ...
 }: let
   inherit (lib) mkIf;
@@ -39,6 +40,7 @@ in {
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
       recommendedTlsSettings = true;
+      additionalModules = with pkgs.nginxModules; [ modsecurity ];
       virtualHosts = let
         cfg = {
           forceSSL = true;
