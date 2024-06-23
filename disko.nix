@@ -1,8 +1,12 @@
 {
-  disko.devices = {
+  disko.devices = let
+    rootDisk = "/dev/sda";
+    dataDisk1 = "/dev/sdb";
+    dataDisk2 = "/dev/sdc";
+  in {
     disk = {
       main = {
-        device = "/dev/disk/by-id/some-disk-id";
+        device = rootDisk;
         type = "disk";
         content = {
           type = "gpt";
@@ -21,33 +25,86 @@
                 mountpoint = "/boot";
               };
             };
-            nix = {
-              size = "25%";
+            root = {
+              size = "100%";
               content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/nix";
-              };
-            };
-            data = {
-              size = "75%";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
+                type = "btrfs";
+                extraArgs = ["-f"]; # override existing partition
+                subvolumes = {
+                  "/rootfs" = {
+                    mountpoint = "/";
+                  };
+                  "/nix" = {
+                    mountOptions = ["noatime"];
+                    mountpoint = "/nix";
+                  };
+                  "/persistent" = {
+                    # neededForBoot = true;
+                    mountpoint = "/persistant";
+                  };
+                  "/swap" = {
+                    mountpoint = "/.swapvol";
+                    swap = {
+                      swapfile.size = "20M";
+                      swapfile2.size = "20M";
+                      swapfile2.path = "rel-path";
+                    };
+                  };
+                };
+                mountpoint = "/partition-root";
+                swap = {
+                  swapfile.size = "20M";
+                  swapfile1.size = "20M";
+                };
               };
             };
           };
         };
       };
+    data1 = {
+      type ="disk";
+      device = dataDisk1;
+      content = {
+        type = "gpt";
+        partitions = {
+          zfs = {
+            size = "100%";
+            content = {
+              type = "zfs";
+              pool = "zdata";
+            };
+          };
+        };
+      };
     };
-    nodev."/" = {
-      fsType = "tmpfs";
-      mountOptions = [
-        "size=2G"
-        "defaults"
-        "mode=755"
-      ];
+    data2 = {
+      type ="disk";
+      device = dataDisk2;
+      content = {
+        type = "gpt";
+        partitions = {
+          zfs = {
+            size = "100%";
+            content = {
+              type = "zfs";
+              pool = "zdata";
+            };
+          };
+        };
+      };
+    };
+    };
+    zpool = {
+      zdata = {
+        type = "zpool";
+        mode = "mirror";
+        rootFsOptions = {
+          # compression = "zstd";
+          # "com.sun:auto-snapshot" = "false";
+        };
+        mountpoint = "/data";
+
+      };
     };
   };
 }
