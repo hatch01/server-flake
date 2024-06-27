@@ -106,7 +106,7 @@ in {
   # zfs
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
-  boot.zfs.devNodes = "/dev/disk/by-path"; # TODO only needed in VMs
+  boot.zfs.devNodes = "/dev/disk/by-partuuid"; # TODO only needed in VMs
 
   # Enable common container config files in /etc/containers
   virtualisation.containers.enable = true;
