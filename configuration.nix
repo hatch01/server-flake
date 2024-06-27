@@ -102,8 +102,11 @@ in {
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  
+  # zfs
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
+  boot.zfs.devNodes = "/dev/disk/by-path"; # TODO only needed in VMs
 
   # Enable common container config files in /etc/containers
   virtualisation.containers.enable = true;
