@@ -1,8 +1,8 @@
 {
   disko.devices = let
-    rootDisk = "/dev/sda";
-    dataDisk1 = "/dev/sdb";
-    dataDisk2 = "/dev/sdc";
+    rootDisk = "/dev/vda";
+    dataDisk1 = "/dev/vdb";
+    dataDisk2 = "/dev/vdc";
   in {
     disk = {
       main = {
@@ -11,11 +11,6 @@
         content = {
           type = "gpt";
           partitions = {
-            boot = {
-              size = "1M";
-              type = "EF02"; # for grub MBR
-              priority = 1; # Needs to be first partition
-            };
             ESP = {
               type = "EF00";
               size = "500M";
@@ -23,6 +18,13 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
+              };
+            };
+            swap = {
+              size = "16G";
+              content = {
+                type = "swap";
+                randomEncryption = true;
               };
             };
             root = {
@@ -42,68 +44,55 @@
                     # neededForBoot = true;
                     mountpoint = "/persistant";
                   };
-                  "/swap" = {
-                    mountpoint = "/.swapvol";
-                    swap = {
-                      swapfile.size = "20M";
-                      swapfile2.size = "20M";
-                      swapfile2.path = "rel-path";
-                    };
-                  };
                 };
                 mountpoint = "/partition-root";
-                swap = {
-                  swapfile.size = "20M";
-                  swapfile1.size = "20M";
-                };
               };
             };
           };
         };
       };
-    data1 = {
-      type ="disk";
-      device = dataDisk1;
-      content = {
-        type = "gpt";
-        partitions = {
-          zfs = {
-            size = "100%";
-            content = {
-              type = "zfs";
-              pool = "zdata";
+      data1 = {
+        type = "disk";
+        device = dataDisk1;
+        content = {
+          type = "gpt";
+          partitions = {
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "storage";
+              };
             };
           };
         };
       };
-    };
-    data2 = {
-      type ="disk";
-      device = dataDisk2;
-      content = {
-        type = "gpt";
-        partitions = {
-          zfs = {
-            size = "100%";
-            content = {
-              type = "zfs";
-              pool = "zdata";
+      data2 = {
+        type = "disk";
+        device = dataDisk2;
+        content = {
+          type = "gpt";
+          partitions = {
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "storage";
+              };
             };
           };
         };
       };
-    };
     };
     zpool = {
-      zdata = {
+      storage = {
         type = "zpool";
         mode = "mirror";
-        rootFsOptions = {
+        # rootFsOptions = {
           # compression = "zstd";
           # "com.sun:auto-snapshot" = "false";
-        };
-        mountpoint = "/data";
-
+        # };
+        mountpoint = "/storage";
       };
     };
   };
