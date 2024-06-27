@@ -1,1 +1,7 @@
-`sudo nix run --extra-experimental-features 'nix-command flakes' 'github:nix-community/disko#disko-install' -- --flake 'github:hatch01/server-flake#jonquille' --disk main /dev/sda`
+`git clone https://github.com/hatch01/server-flake`
+
+`cd server-flake`
+
+`sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko ./disko.nix`
+
+`sudo nixos-install --flake .#jonquille`
