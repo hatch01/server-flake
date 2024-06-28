@@ -42,7 +42,7 @@
                   };
                   "/persistent" = {
                     # neededForBoot = true;
-                    mountpoint = "/persistant";
+                    mountpoint = "/persistent";
                   };
                 };
                 mountpoint = "/partition-root";

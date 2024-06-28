@@ -20,6 +20,7 @@ in {
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./unfree.nix
+      ./impermanence.nix
     ]
     ++ fudgeMyShitIn [
       apps/dendrite.nix

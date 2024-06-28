@@ -28,6 +28,8 @@
       inputs.agenix.inputs.darwin.follows = "";
     };
 
+    impermanence.url = "github:nix-community/impermanence";
+
     authelia.url = "github:nicomem/nixpkgs/authelia-4.38";
   };
 
@@ -37,6 +39,7 @@
     agenix,
     deploy-rs,
     disko,
+    impermanence,
     self,
     ...
   } @ inputs: let
@@ -68,7 +71,13 @@
         nixosConfigurations = {
           jonquille = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            modules = [./configuration.nix ./disko.nix agenix.nixosModules.default disko.nixosModules.disko];
+            modules = [
+              ./configuration.nix
+              ./disko.nix
+              agenix.nixosModules.default
+              disko.nixosModules.disko
+              impermanence.nixosModules.impermanence
+            ];
             specialArgs = {
               inherit inputs hostName;
             };

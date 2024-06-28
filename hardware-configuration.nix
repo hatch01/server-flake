@@ -10,6 +10,8 @@
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
+  fileSystems."/persistent".neededForBoot = true;
+
   boot.initrd.availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];
