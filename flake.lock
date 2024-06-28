@@ -25,11 +25,11 @@
     },
     "authelia": {
       "locked": {
-        "lastModified": 1718813667,
-        "narHash": "sha256-EOpbHP6gwu1PhLzMpuAS5apfxv/aByv89Y/v7rRegCg=",
+        "lastModified": 1719591766,
+        "narHash": "sha256-yDzxI/3yWTXEoMlMKP3cYaLJeA9uKqeRkXVkJd/xG4A=",
         "owner": "nicomem",
         "repo": "nixpkgs",
-        "rev": "ebf1c565b9db12c03cea3e960d0bdd51df328255",
+        "rev": "2c27b8f2e81da2f47aea96c58e56d3dc12a61701",
         "type": "github"
       },
       "original": {
@@ -88,11 +88,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1719451710,
-        "narHash": "sha256-h+bFEQHQ46pBkEsOXbxmmY6QNPPGrgpDbNlHtAKG49M=",
+        "lastModified": 1719582740,
+        "narHash": "sha256-s4WsLu2L8EzF5Hg2TkelFLVhKGL108AySnlw8voPe5U=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "8767dbf5d723b1b6834f4d09b217da7c31580d58",
+        "rev": "115311bc395f24c1b553338fec4b3aa28cbf5ae2",
         "type": "github"
       },
       "original": {
