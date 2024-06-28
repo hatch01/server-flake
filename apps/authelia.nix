@@ -9,6 +9,18 @@
 }: let
   inherit (lib) mkEnableOption mkOption mkIf optionals types;
   autheliaInstance = "main";
+  mkUserRule = appName:
+    optionals config."${appName}".enable [
+      {
+        domain = config."${appName}".hostName;
+        policy = "one_factor";
+        networks = ["local"];
+      }
+      {
+        domain = config."${appName}".hostName;
+        policy = "two_factor";
+      }
+    ];
 in {
   options = {
     authelia = {
@@ -171,21 +183,27 @@ in {
                   networks = ["192.168.0.0/18"];
                 }
               ];
-              rules = [
-                {
-                  domain = "*.${hostName}";
-                  policy = "one_factor";
-                  networks = ["local"];
-                }
-                {
-                  domain = "*.${hostName}";
-                  policy = "two_factor";
-                }
-                {
-                  domain = hostName;
-                  policy = "one_factor";
-                }
-              ];
+              rules =
+                [
+                  # be careful with the order of the rules it is important
+                  # https://www.authelia.com/configuration/security/access-control/#rule-matching
+                  {
+                    domain_regex = ".*\.${hostName}";
+                    policy = "one_factor";
+                    networks = ["local"];
+                    subject = [
+                      ["group:admin"]
+                    ];
+                  }
+                  {
+                    domain_regex = ".*\.${hostName}";
+                    policy = "two_factor";
+                    subject = [
+                      ["group:admin"]
+                    ];
+                  }
+                ]
+                ++ mkUserRule "homepage";
             };
 
             authentication_backend = {

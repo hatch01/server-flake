@@ -68,6 +68,27 @@ in {
             };
           };
         };
+
+        ${config.netdata.hostName} = mkIf config.netdata.enable {
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
+          # enableACME = true;
+          # extraConfig = builtins.readFile ./authelia-location.conf;
+          locations = {
+            "/" = {
+              proxyPass = "http://localhost:${toString config.netdata.port}";
+              extraConfig = lib.strings.concatStringsSep "\n" [
+                (builtins.readFile ./auth-proxy.conf)
+                (builtins.readFile ./auth-authrequest.conf)
+              ];
+            };
+            # Corresponds to https://www.authelia.com/integration/proxies/nginx/#authelia-locationconf
+            "/internal/authelia/authz" = {
+              proxyPass = "http://localhost:${toString config.authelia.port}/api/authz/auth-request";
+              extraConfig = builtins.readFile ./auth-location.conf;
+            };
+          };
+        };
+
         # TODO create a simplified method to define those
         ${config.nextcloud.hostName} = mkIf config.nextcloud.enable {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
@@ -80,10 +101,6 @@ in {
         ${config.dendrite.hostName} = mkIf config.dendrite.enable {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
           locations."/".proxyPass = "http://localhost:${toString config.dendrite.port}";
-        };
-        ${config.netdata.hostName} = mkIf config.netdata.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
-          locations."/".proxyPass = "http://localhost:${toString config.netdata.port}";
         };
         ${config.nixCache.hostName} = mkIf config.nixCache.enable {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
