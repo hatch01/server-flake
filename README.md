@@ -6,6 +6,8 @@ Maybe you will need to adapt the disks names in `disko.nix`
 
 `sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko ./disko.nix`
 
+Put key in /mnt/etc/age/key 
+
 `sudo nixos-install --flake .#jonquille`
 
 pub key of cache service: `onyx.ovh:jDq2MSDU6zuU7V+dgb2DH+UtCa8ztMyhc+1ZXJmPddc=`
