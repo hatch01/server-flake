@@ -29,6 +29,7 @@ in {
       apps/authelia.nix
       apps/nginx
       apps/netdata.nix
+      apps/nixCache.nix
     ];
 
   nextcloud.enable = true;
@@ -38,6 +39,7 @@ in {
   authelia.enable = true;
   gitlab.enable = true;
   netdata.enable = true;
+  nixCache.enable = true;
 
   security.pki.certificates = [
     ''      -----BEGIN CERTIFICATE-----

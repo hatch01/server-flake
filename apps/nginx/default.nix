@@ -85,6 +85,10 @@ in {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
           locations."/".proxyPass = "http://localhost:${toString config.netdata.port}";
         };
+        ${config.nixCache.hostName} = mkIf config.nixCache.enable {
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
+          locations."/".proxyPass = "http://localhost:${toString config.nixCache.port}";
+        };
 
         ${config.authelia.hostName} = mkIf config.authelia.enable {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
