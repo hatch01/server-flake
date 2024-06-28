@@ -23,6 +23,14 @@ in {
   };
 
   config = mkIf config.nixCache.enable {
+    users = {
+      users.nix-serve = {
+        isSystemUser = true;
+        group = "nix-serve";
+      };
+      groups.nix-serve = {};
+    };
+
     age.secrets = mkSecret "cache-priv-key.pem" {
       owner = "nix-serve";
     };
