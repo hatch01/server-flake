@@ -23,7 +23,9 @@ in {
   };
 
   config = mkIf config.nixCache.enable {
-    age.secrets = mkSecret "cache-priv-key.pem" {owner = "nix-server";};
+    age.secrets = mkSecret "cache-priv-key.pem" {
+      owner = "nix-serve";
+    };
     services.nix-serve = {
       enable = true;
       port = config.nixCache.port;
