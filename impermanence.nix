@@ -7,6 +7,7 @@
         mode = "0700";
       }
       "/var/lib/systemd/coredump"
+      "/etc/nixos"
     ];
     files = [
       "/etc/machine-id"
