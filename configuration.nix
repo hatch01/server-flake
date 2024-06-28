@@ -42,6 +42,9 @@ in {
   netdata.enable = true;
   nixCache.enable = true;
 
+  gitlab.hostName = "forge.${hostName}";
+  netdata.hostName = "netdata.${hostName}";
+
   security.pki.certificates = [
     ''      -----BEGIN CERTIFICATE-----
       MIIDxTCCAq2gAwIBAgIUP6Jh5XBWvz34WVfJP5mXwxvVgWkwDQYJKoZIhvcNAQEL

@@ -12,7 +12,7 @@ in {
       enable = mkEnableOption "enable Gitlab";
       hostName = mkOption {
         type = types.str;
-        default = "forge.${hostName}";
+        default = "gitlab.${hostName}";
         description = "The hostname of the Gitlab instance";
       };
     };
