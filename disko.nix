@@ -89,8 +89,8 @@
         type = "zpool";
         mode = "mirror";
         # rootFsOptions = {
-          # compression = "zstd";
-          # "com.sun:auto-snapshot" = "false";
+        # compression = "zstd";
+        # "com.sun:auto-snapshot" = "false";
         # };
         mountpoint = "/storage";
       };

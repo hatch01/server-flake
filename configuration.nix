@@ -102,9 +102,9 @@ in {
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  
+
   # zfs
-  boot.supportedFilesystems = [ "zfs" ];
+  boot.supportedFilesystems = ["zfs"];
   boot.zfs.forceImportRoot = false;
   boot.zfs.devNodes = "/dev/disk/by-partuuid"; # TODO only needed in VMs
 
