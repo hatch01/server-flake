@@ -81,7 +81,7 @@ in {
   };
 
   age = {
-    identityPaths = ["/etc/age/key"];
+    identityPaths = ["/persistent/key"];
 
     secrets = mkSecrets {
       userPassword = {};
