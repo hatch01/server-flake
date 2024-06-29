@@ -9,7 +9,10 @@
 }: let
   inherit (lib) mkEnableOption mkOption mkIf optionals types;
   autheliaInstance = "main";
-  mkUserRule = appName:
+  mkUserRule = {
+    appName,
+    two_factor ? true,
+  }:
     optionals config."${appName}".enable [
       {
         domain = config."${appName}".hostName;
@@ -18,7 +21,10 @@
       }
       {
         domain = config."${appName}".hostName;
-        policy = "two_factor";
+        policy =
+          if two_factor
+          then "two_factor"
+          else "one_factor";
       }
     ];
 in {
@@ -203,7 +209,10 @@ in {
                     ];
                   }
                 ]
-                ++ mkUserRule "homepage";
+                ++ mkUserRule {
+                  appName = "homepage";
+                  two_factor = false;
+                };
             };
 
             authentication_backend = {
