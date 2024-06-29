@@ -8,6 +8,11 @@
       }
       "/var/lib/systemd/coredump"
       "/etc/nixos"
+      {
+        directory = "/var/lib/postgresql";
+        user = "postgres";
+        group = "postgres";
+      }
     ];
     files = [
       "/etc/machine-id"
