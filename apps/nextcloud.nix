@@ -108,8 +108,11 @@ in {
             mail_smtpauth = 1;
             mail_smtpport = 587;
             mail_smtpname = "eymeric.monitoring";
+            maintenance_window_start = 1;
+            default_phone_region = "FR";
+            log_type = "file";
           }
-          // mkIf config.authelia.enable {
+          // optionals config.authelia.enable {
             user_oidc = {
               single_logout = false;
               auto_provision = true;
@@ -152,6 +155,13 @@ in {
         # - oidc_login_client_secret for authelia
         # - mail_smtppassword for mail
         secretFile = mkIf config.authelia.enable config.age.secrets.nextcloudSecretFile.path;
+
+        phpOptions = {
+          "opcache.enable" = "1";
+          "opcache.revalidate_freq" = "0";
+          "opcache.memory_consumption" = "1024";
+          "opcache.interned_strings_buffer" = "512";
+        };
       };
 
       onlyoffice = mkIf config.onlyoffice.enable {
