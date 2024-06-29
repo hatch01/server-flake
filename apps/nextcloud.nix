@@ -96,7 +96,7 @@ in {
               ;
           };
         extraAppsEnable = true;
-        appstoreEnable = true;
+        # appstoreEnable = true; # DO NOT ENABLE, it will break the declarative config for apps
 
         settings =
           {
