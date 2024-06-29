@@ -11,3 +11,11 @@ Put key in /mnt/persistent/key
 `sudo nixos-install --flake .#jonquille`
 
 pub key of cache service: `onyx.ovh:jDq2MSDU6zuU7V+dgb2DH+UtCa8ztMyhc+1ZXJmPddc=`
+
+# nextcloud
+
+cleaning nextcloud
+```console
+rm -rf /var/lib/nextcloud 
+sudo -u postgres dropdb nextcloud
+```

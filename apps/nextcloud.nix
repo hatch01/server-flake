@@ -6,7 +6,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption mkIf types optionalAttrs;
+  inherit (lib) mkEnableOption mkOption mkIf types optionalAttrs optionals;
 in {
   options = {
     nextcloud = {
@@ -68,7 +68,6 @@ in {
               calendar
               tasks
               mail
-              twofactor_webauthn
               cospend
               end_to_end_encryption
               forms
@@ -82,19 +81,20 @@ in {
               cookbook
               ;
           }
-          // mkIf config.authelia.enable {
+          // optionals config.authelia.enable {
             oidc_login = pkgs.fetchNextcloudApp {
               license = "agpl3Plus";
               url = "https://github.com/pulsejet/nextcloud-oidc-login/releases/download/v3.1.1/oidc_login.tar.gz";
               sha256 = "sha256-EVHDDFtz92lZviuTqr+St7agfBWok83HpfuL6DFCoTE=";
             };
           }
-          // mkIf config.onlyoffice.enable {
+          // optionals config.onlyoffice.enable {
             inherit
               (config.services.nextcloud.package.packages.apps)
               onlyoffice
               ;
           };
+
         extraAppsEnable = true;
         # appstoreEnable = true; # DO NOT ENABLE, it will break the declarative config for apps
 
