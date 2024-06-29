@@ -34,6 +34,7 @@ in {
 
             # update interval
             "update every" = 15;
+            "memory mode" = "map";
           };
           ml = {
             "enabled" = "yes";

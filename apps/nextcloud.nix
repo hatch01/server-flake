@@ -51,7 +51,7 @@ in {
         autoUpdateApps.enable = true;
         https = true;
         configureRedis = true;
-        # datadir = ""; # probably needed with raid disk etc
+        datadir = "/storage/nextcloud"; # probably needed with raid disk etc
         database.createLocally = true;
         maxUploadSize = "10G";
         config = {
