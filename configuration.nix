@@ -85,6 +85,7 @@ in {
 
     secrets = mkSecrets {
       userPassword = {};
+      rootPassword = {};
       githubToken = {};
       smtpPassword = {
         group = "smtp";
@@ -203,8 +204,10 @@ in {
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
+    mutableUsers = false;
     users = {
       root = {
+        hashedPasswordFile = config.age.secrets.rootPassword.path;
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII8szPPvvc4T9fsIR876a51XTWqSjtLZaYNmH++zQzNs eymericdechelette@gmail.com"
         ];

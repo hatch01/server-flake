@@ -4,6 +4,7 @@ let
   all = [eymeric];
 in {
   "userPassword.age".publicKeys = all;
+  "rootPassword.age".publicKeys = all;
   "githubToken.age".publicKeys = all;
   "nextcloudAdmin.age".publicKeys = all;
   "nextcloudSecretFile.age".publicKeys = all;
