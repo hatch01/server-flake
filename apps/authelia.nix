@@ -300,16 +300,6 @@ in {
           }
         ];
       };
-
-      nginx = {
-        enable = true;
-        recommendedProxySettings = true;
-        virtualHosts = {
-          "${config.authelia.hostName}" = {
-            locations."/".proxyPass = "http://localhost:9091";
-          };
-        };
-      };
     };
   };
 }
