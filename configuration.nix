@@ -31,6 +31,7 @@ in {
       apps/nginx
       apps/netdata.nix
       apps/nixCache.nix
+      apps/adguard.nix
     ];
 
   nextcloud.enable = true;
@@ -41,9 +42,10 @@ in {
   gitlab.enable = true;
   netdata.enable = true;
   nixCache.enable = true;
+  adguard.enable = true;
 
+  adguard.hostName = "dns.${hostName}";
   gitlab.hostName = "forge.${hostName}";
-  netdata.hostName = "netdata.${hostName}";
 
   security.pki.certificates = [
     ''      -----BEGIN CERTIFICATE-----
@@ -146,6 +148,7 @@ in {
         "forge.${hostName}"
         "authelia.${hostName}"
         "dendrite.${hostName}"
+        "dns.${hostName}"
       ];
     };
   };

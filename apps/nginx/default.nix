@@ -51,13 +51,10 @@ in {
       in {
         "${hostName}" = mkIf config.homepage.enable {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
-          # enableACME = true;
-          # extraConfig = builtins.readFile ./authelia-location.conf;
           locations = {
             "/" = {
               proxyPass = "http://localhost:${toString config.homepage.port}";
               extraConfig = lib.strings.concatStringsSep "\n" [
-                (builtins.readFile ./auth-proxy.conf)
                 (builtins.readFile ./auth-authrequest.conf)
               ];
             };
@@ -71,13 +68,27 @@ in {
 
         ${config.netdata.hostName} = mkIf config.netdata.enable {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
-          # enableACME = true;
-          # extraConfig = builtins.readFile ./authelia-location.conf;
           locations = {
             "/" = {
               proxyPass = "http://localhost:${toString config.netdata.port}";
               extraConfig = lib.strings.concatStringsSep "\n" [
-                (builtins.readFile ./auth-proxy.conf)
+                (builtins.readFile ./auth-authrequest.conf)
+              ];
+            };
+            # Corresponds to https://www.authelia.com/integration/proxies/nginx/#authelia-locationconf
+            "/internal/authelia/authz" = {
+              proxyPass = "http://localhost:${toString config.authelia.port}/api/authz/auth-request";
+              extraConfig = builtins.readFile ./auth-location.conf;
+            };
+          };
+        };
+
+        ${config.adguard.hostName} = mkIf config.adguard.enable {
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
+          locations = {
+            "/" = {
+              proxyPass = "http://localhost:${toString config.adguard.port}";
+              extraConfig = lib.strings.concatStringsSep "\n" [
                 (builtins.readFile ./auth-authrequest.conf)
               ];
             };
