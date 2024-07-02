@@ -85,6 +85,20 @@ in {
                   # }
                 };
               }
+              {
+                "Adguard" = {
+                  icon = "adguard-home.png";
+                  description = "Adguard c'est vraiment cool";
+                  href = "https://${config.adguard.hostName}";
+                  siteMonitor = "https://${config.adguard.hostName}";
+                  widget = {
+                    type = "adguard";
+                    url = "https://${config.adguard.hostName}";
+                    username = "admin"; # unused creds
+                    password = "password";
+                  };
+                };
+              }
             ];
           }
         ];

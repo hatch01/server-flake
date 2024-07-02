@@ -45,7 +45,6 @@ in {
           force_https = true;
           port_dns_over_tls = 853;
           port_dns_over_quic = 853;
-          
         };
         filtering = {
           protection_enabled = true;

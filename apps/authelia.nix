@@ -186,13 +186,23 @@ in {
               networks = [
                 {
                   name = "local";
-                  networks = ["192.168.0.0/18"];
+                  networks = ["192.168.0.0/16"];
+                }
+                {
+                  name = "internal";
+                  networks = ["127.0.0.1/32"];
                 }
               ];
               rules =
                 [
                   # be careful with the order of the rules it is important
                   # https://www.authelia.com/configuration/security/access-control/#rule-matching
+                  {
+                    domain_regex = ".*\.${hostName}";
+                    policy = "bypass";
+                    networks = ["internal"];
+                 
+                  }
                   {
                     domain_regex = ".*\.${hostName}";
                     policy = "one_factor";
