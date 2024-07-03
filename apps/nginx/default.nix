@@ -41,12 +41,20 @@ in {
       recommendedOptimisation = true;
       recommendedTlsSettings = true;
       additionalModules = with pkgs.nginxModules; [modsecurity];
+      proxyCachePath = {
+        "" = {
+          enable = true;
+          keysZoneName = "cache";
+        };
+      };
+
       virtualHosts = let
         cfg = {
           forceSSL = true;
           sslCertificate = config.age.secrets.selfSignedCert.path;
           sslCertificateKey = config.age.secrets.selfSignedCertKey.path;
           useACMEHost = hostName;
+          extraConfig = "proxy_cache cache;\n";
         };
       in {
         "${hostName}" = mkIf config.homepage.enable {
@@ -102,24 +110,26 @@ in {
 
         # TODO create a simplified method to define those
         ${config.nextcloud.hostName} = mkIf config.nextcloud.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
         };
 
         ${config.gitlab.hostName} = mkIf config.gitlab.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
           locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
         };
         ${config.dendrite.hostName} = mkIf config.dendrite.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
-          locations."/".proxyPass = "http://localhost:${toString config.dendrite.port}";
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
+          locations."/" = {
+            proxyPass = "http://localhost:${toString config.dendrite.port}";
+          };
         };
         ${config.nixCache.hostName} = mkIf config.nixCache.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
           locations."/".proxyPass = "http://localhost:${toString config.nixCache.port}";
         };
 
         ${config.authelia.hostName} = mkIf config.authelia.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
           locations = let
             authUrl = "http://localhost:${toString config.authelia.port}";
           in {
