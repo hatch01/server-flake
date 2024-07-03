@@ -32,6 +32,7 @@ in {
       apps/netdata.nix
       apps/nixCache.nix
       apps/adguard.nix
+      apps/fail2ban.nix
     ];
 
   nextcloud.enable = true;
@@ -43,6 +44,7 @@ in {
   netdata.enable = true;
   nixCache.enable = true;
   adguard.enable = true;
+  fail2ban.enable = true;
 
   adguard.hostName = "dns.${hostName}";
   gitlab.hostName = "forge.${hostName}";

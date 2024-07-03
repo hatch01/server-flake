@@ -201,7 +201,6 @@ in {
                     domain_regex = ".*\.${hostName}";
                     policy = "bypass";
                     networks = ["internal"];
-                 
                   }
                   {
                     domain_regex = ".*\.${hostName}";
