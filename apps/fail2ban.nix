@@ -18,7 +18,7 @@ in {
       ignoreIP = [
         # Whitelist some subnets
         "127.0.0.1"
-        # "192.168.0.0/16"
+        "192.168.0.0/16"
       ];
       bantime = "24h"; # Ban IPs for one day on the first ban
       bantime-increment = {
