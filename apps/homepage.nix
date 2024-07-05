@@ -75,17 +75,6 @@ in {
                 };
               }
               {
-                "Dendrite" = {
-                  icon = "matrix.png";
-                  description = "Dendrite c'est vraiment cool";
-                  href = "https://${config.dendrite.hostName}";
-                  siteMonitor = "https://${config.dendrite.hostName}";
-                  # TODO complete with a custom api status widget
-                  # widget = {
-                  # }
-                };
-              }
-              {
                 "Adguard" = {
                   icon = "adguard-home.png";
                   description = "Adguard c'est vraiment cool";

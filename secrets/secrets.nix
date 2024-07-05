@@ -9,7 +9,6 @@ in {
   "nextcloudAdmin.age".publicKeys = all;
   "nextcloudSecretFile.age".publicKeys = all;
   "onlyofficeKey.age".publicKeys = all;
-  "dendriteKey.age".publicKeys = all;
   "homepage.age".publicKeys = all;
   "selfSignedCert.age".publicKeys = all;
   "selfSignedCertKey.age".publicKeys = all;

@@ -23,7 +23,6 @@ in {
       ./impermanence.nix
     ]
     ++ fudgeMyShitIn [
-      apps/dendrite.nix
       apps/gitlab.nix
       apps/homepage.nix
       apps/nextcloud.nix
@@ -37,7 +36,6 @@ in {
 
   nextcloud.enable = true;
   onlyoffice.enable = true;
-  dendrite.enable = true;
   homepage.enable = true;
   authelia.enable = true;
   gitlab.enable = true;
@@ -149,7 +147,7 @@ in {
         "nextcloud.${hostName}"
         "forge.${hostName}"
         "authelia.${hostName}"
-        "dendrite.${hostName}"
+        "matrix.${hostName}"
         "dns.${hostName}"
       ];
     };

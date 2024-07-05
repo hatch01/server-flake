@@ -117,12 +117,6 @@ in {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
           locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
         };
-        ${config.dendrite.hostName} = mkIf config.dendrite.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
-          locations."/" = {
-            proxyPass = "http://localhost:${toString config.dendrite.port}";
-          };
-        };
         ${config.nixCache.hostName} = mkIf config.nixCache.enable {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
           locations."/".proxyPass = "http://localhost:${toString config.nixCache.port}";
