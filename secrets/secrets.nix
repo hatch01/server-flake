@@ -13,6 +13,7 @@ in {
   "selfSignedCert.age".publicKeys = all;
   "selfSignedCertKey.age".publicKeys = all;
   "smtpPassword.age".publicKeys = all;
+  "matrix_oidc.age".publicKeys = all;
   "cache-priv-key.pem.age".publicKeys = all;
 
   "gitlab/databasePasswordFile.age".publicKeys = all;

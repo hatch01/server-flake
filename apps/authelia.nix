@@ -293,6 +293,23 @@ in {
                     userinfo_signed_response_alg = "none";
                     token_endpoint_auth_method = "client_secret_basic";
                   }
+                ]
+                ++ optionals config.matrix.enable [
+                  {
+                    client_name = "Synapse";
+                    client_id = "synapse";
+                    # the client secret is a random hash so don't worry about it
+                    client_secret = "$pbkdf2-sha512$310000$76fMoD2cZWbBuahpGNUyNg$w5bAvbBpTU1fXMO41FdkYXbTafvDfYnrOZxRiOwOmfXe.sCZZ9pvL6nboA8/oDSXMUsJDGd3hxpiZL7x5c/vgQ";
+                    public = false;
+                    authorization_policy = "two_factor";
+                    redirect_uris = ["https://${config.matrix.hostName}/_synapse/client/oidc/callback"];
+                    scopes = [
+                      "openid"
+                      "profile"
+                      "email"
+                    ];
+                    userinfo_signed_response_alg = "none";
+                  }
                 ];
             };
           };

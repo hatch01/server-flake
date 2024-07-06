@@ -57,10 +57,19 @@ in {
           extraConfig = "proxy_cache cache;\n";
         };
       in {
-        "${hostName}" = mkIf config.homepage.enable {
+        "${hostName}" = let
+          baseUrl = "https://${config.matrix.hostName}";
+          clientConfig."m.homeserver".base_url = baseUrl;
+          serverConfig."m.server" = "${config.matrix.hostName}:443";
+          mkWellKnown = data: ''
+            default_type application/json;
+            add_header Access-Control-Allow-Origin *;
+            return 200 '${builtins.toJSON data}';
+          '';
+        in {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey;
           locations = {
-            "/" = {
+            "/" = mkIf config.homepage.enable {
               proxyPass = "http://localhost:${toString config.homepage.port}";
               extraConfig = lib.strings.concatStringsSep "\n" [
                 (builtins.readFile ./auth-authrequest.conf)
@@ -71,6 +80,9 @@ in {
               proxyPass = "http://localhost:${toString config.authelia.port}/api/authz/auth-request";
               extraConfig = builtins.readFile ./auth-location.conf;
             };
+
+            "= /.well-known/matrix/server".extraConfig = mkIf config.matrix.enable (mkWellKnown serverConfig);
+            "= /.well-known/matrix/client".extraConfig = mkIf config.matrix.enable (mkWellKnown clientConfig);
           };
         };
 
@@ -117,6 +129,29 @@ in {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
           locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
         };
+
+        ${config.matrix.hostName} = let
+          clientConfig."m.homeserver".base_url = "https://${config.matrix.hostName}";
+        in
+          mkIf config.matrix.enable {
+            inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
+            serverAliases = [config.matrix.hostName];
+            root = mkIf config.matrix.enableElement (pkgs.element-web.override {
+              conf = {
+                default_server_config = clientConfig; # see `clientConfig` from the snippet above.
+              };
+            });
+            locations = {
+              "/".extraConfig = mkIf  (! config.matrix.enableElement) ''
+                return 404;
+              '';
+              # Forward all Matrix API calls to the synapse Matrix homeserver. A trailing slash
+              # *must not* be used here.
+              "/_matrix".proxyPass = "http://[::1]:${toString config.matrix.port}";
+              # Forward requests for e.g. SSO and password-resets.
+              "/_synapse/client".proxyPass = "http://[::1]:${toString config.matrix.port}";
+            };
+          };
         ${config.nixCache.hostName} = mkIf config.nixCache.enable {
           inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
           locations."/".proxyPass = "http://localhost:${toString config.nixCache.port}";

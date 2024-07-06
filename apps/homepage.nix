@@ -73,6 +73,13 @@ in {
                   href = "https://${config.gitlab.hostName}/";
                   siteMonitor = "https://${config.gitlab.hostName}/";
                 };
+              }{
+                "Matrix" = {
+                  icon = "element.png";
+                  description = "Matrix c'est vraiment cool";
+                  href = "https://${config.matrix.hostName}/";
+                  siteMonitor = "https://${config.matrix.hostName}/";
+                };
               }
               {
                 "Adguard" = {

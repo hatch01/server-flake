@@ -32,6 +32,7 @@ in {
       apps/nixCache.nix
       apps/adguard.nix
       apps/fail2ban.nix
+      apps/matrix
     ];
 
   nextcloud.enable = true;
@@ -43,6 +44,8 @@ in {
   nixCache.enable = true;
   adguard.enable = true;
   fail2ban.enable = true;
+  matrix.enable = true;
+  matrix.enableElement = true;
 
   adguard.hostName = "dns.${hostName}";
   gitlab.hostName = "forge.${hostName}";
@@ -139,6 +142,7 @@ in {
 
   # Enable networking
   networking = {
+    domain = hostName;
     networkmanager.enable = true;
     hostId = "271e1c23";
     hosts = {
