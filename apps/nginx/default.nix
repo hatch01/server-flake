@@ -142,7 +142,7 @@ in {
               };
             });
             locations = {
-              "/".extraConfig = mkIf  (! config.matrix.enableElement) ''
+              "/".extraConfig = mkIf (! config.matrix.enableElement) ''
                 return 404;
               '';
               # Forward all Matrix API calls to the synapse Matrix homeserver. A trailing slash

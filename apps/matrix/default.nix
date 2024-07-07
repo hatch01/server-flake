@@ -71,8 +71,7 @@ in {
               email_template = "{{ user.email }}";
             };
           };
-          
-          }
+        }
       ];
     };
     # services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''

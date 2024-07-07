@@ -151,7 +151,7 @@ in {
               format = "text"; # for fail2ban better integration
               file_path = "/tmp/authelia.log"; # TODO modify to /var/log/authelia.log or something else
               keep_stdout = true;
-              level = "debug"; # TODO switch to trace after debug
+              level = "trace";
             };
             storage = {
               postgres = {
