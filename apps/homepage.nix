@@ -40,7 +40,7 @@ in {
         settings = {
           title = "Onyx Homepage";
           background = "https://images.unsplash.com/photo-1485431142439-206ba3a9383e?q=80&w=1966&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-          headerStyle = "clean";
+          headerStyle = "boxed";
           language = "fr";
           theme = "light";
           quicklaunch = {
@@ -48,10 +48,17 @@ in {
             showSearchSuggestions = true;
             searchDescriptions = true;
           };
+          layout = {
+            "All users tools" = {
+              style = "row";
+              columns = 4;
+              icon = "nextcloud.png";
+            };
+          };
         };
         services = [
           {
-            "Group 1" = [
+            "All users tools" = [
               {
                 "Nextcloud" = {
                   icon = "nextcloud.png";
@@ -73,7 +80,8 @@ in {
                   href = "https://${config.gitlab.hostName}/";
                   siteMonitor = "https://${config.gitlab.hostName}/";
                 };
-              }{
+              }
+              {
                 "Matrix" = {
                   icon = "element.png";
                   description = "Matrix c'est vraiment cool";
@@ -81,6 +89,22 @@ in {
                   siteMonitor = "https://${config.matrix.hostName}/";
                 };
               }
+            ];
+          }
+          {
+            "Administration" = [
+                {
+                  "Netdata" = {
+                    icon = "netdata.png";
+                    description = "netdata c'est vraiment cool";
+                    href = "https://${config.netdata.hostName}";
+                    # siteMonitor = "https://${config.netdata.hostName}";
+                    widget = {
+                      type = "netdata";
+                      url = "http://localhost:${toString config.netdata.port}";
+                    };
+                  };
+                }
               {
                 "Adguard" = {
                   icon = "adguard-home.png";
@@ -89,7 +113,7 @@ in {
                   siteMonitor = "https://${config.adguard.hostName}";
                   widget = {
                     type = "adguard";
-                    url = "https://${config.adguard.hostName}";
+                    url = "http://localhost:${toString config.adguard.port}";
                     username = "admin"; # unused creds
                     password = "password";
                   };
