@@ -27,6 +27,8 @@
       "locked": {
         "lastModified": 1720367842,
         "narHash": "sha256-Nf8BFp87xs8GrsOF/1f0XPPMAQ/yyh8GHbilEemW2pY=",
+        "lastModified": 1720367842,
+        "narHash": "sha256-Nf8BFp87xs8GrsOF/1f0XPPMAQ/yyh8GHbilEemW2pY=",
         "owner": "nicomem",
         "repo": "nixpkgs",
         "rev": "700e422f017e2feb76856650f77410d8fe5ef778",
