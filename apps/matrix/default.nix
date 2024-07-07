@@ -2,11 +2,17 @@
   config,
   hostName,
   lib,
+  pkgs,
   mkSecret,
+  mkSecrets,
   ...
 }: let
   inherit (lib) mkEnableOption mkOption mkIf types;
 in {
+  imports = [
+    (import ./signal.nix {inherit mkSecret config lib hostName;})
+  ];
+
   options = {
     matrix = {
       enable = mkEnableOption "enable matrix";
@@ -24,12 +30,25 @@ in {
   };
 
   config = mkIf config.matrix.enable {
-    age.secrets = mkSecret "matrix_oidc" {
+    matrix.signal.enable = true;
+
+    age.secrets = mkSecrets { 
+      "matrix_oidc" = {
       owner = "matrix-synapse";
     };
+    "matrix_shared_secret_authentificator" = {
+      owner = "matrix-synapse";
+    };
+    };
+    
 
     services.matrix-synapse = {
       enable = true;
+
+      plugins = with config.services.matrix-synapse.package.plugins; [
+        matrix-synapse-shared-secret-auth
+      ];
+
       settings.server_name = config.networking.domain;
       # The public base URL value must match the `base_url` value set in `clientConfig` above.
       # The default value here is based on `server_name`, so if your `server_name` is different
@@ -73,6 +92,8 @@ in {
           };
         }
       ];
+
+      extraConfigFiles = [config.age.secrets.matrix_shared_secret_authentificator.path];
     };
     # services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
     #   CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"

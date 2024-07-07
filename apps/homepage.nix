@@ -93,18 +93,18 @@ in {
           }
           {
             "Administration" = [
-                {
-                  "Netdata" = {
-                    icon = "netdata.png";
-                    description = "netdata c'est vraiment cool";
-                    href = "https://${config.netdata.hostName}";
-                    # siteMonitor = "https://${config.netdata.hostName}";
-                    widget = {
-                      type = "netdata";
-                      url = "http://localhost:${toString config.netdata.port}";
-                    };
+              {
+                "Netdata" = {
+                  icon = "netdata.png";
+                  description = "netdata c'est vraiment cool";
+                  href = "https://${config.netdata.hostName}";
+                  # siteMonitor = "https://${config.netdata.hostName}";
+                  widget = {
+                    type = "netdata";
+                    url = "http://localhost:${toString config.netdata.port}";
                   };
-                }
+                };
+              }
               {
                 "Adguard" = {
                   icon = "adguard-home.png";

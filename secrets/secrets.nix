@@ -14,6 +14,8 @@ in {
   "selfSignedCertKey.age".publicKeys = all;
   "smtpPassword.age".publicKeys = all;
   "matrix_oidc.age".publicKeys = all;
+  "matrix_shared_secret.age".publicKeys = all;
+  "matrix_shared_secret_authentificator.age".publicKeys = all;
   "cache-priv-key.pem.age".publicKeys = all;
 
   "gitlab/databasePasswordFile.age".publicKeys = all;
