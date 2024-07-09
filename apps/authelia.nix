@@ -138,7 +138,8 @@ in {
 
             server = {
               disable_healthcheck = true;
-              address = "tcp://:${toString config.authelia.port}/";
+              address = "unix:///var/run/authelia.sock?path=authelia&umask=0117";
+              # address = "tcp://:${toString config.authelia.port}/";
               endpoints = {
                 authz = {
                   auth-request = {
