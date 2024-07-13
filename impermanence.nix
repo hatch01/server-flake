@@ -45,8 +45,9 @@ in {
           user = "postgres";
           group = "postgres";
         }
+        "/var/log"
       ]
-      ++ optionals config.netdata.enable ["/var/lib/netdata" "/var/cache/netdata" "/var/log/netdata"];
+      ++ optionals config.netdata.enable ["/var/lib/netdata" "/var/cache/netdata"];
     files = [
       "/etc/machine-id"
       "/etc/ssh/ssh_host_ed25519_key"

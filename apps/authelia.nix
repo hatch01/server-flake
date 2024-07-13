@@ -149,7 +149,7 @@ in {
             };
             log = {
               format = "text"; # for fail2ban better integration
-              file_path = "/tmp/authelia.log"; # TODO modify to /var/log/authelia.log or something else
+              file_path = "/var/lib/authelia-main/authelia.log";
               keep_stdout = true;
               level = "trace";
             };
