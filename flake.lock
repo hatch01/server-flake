@@ -25,13 +25,11 @@
     },
     "authelia": {
       "locked": {
-        "lastModified": 1720367842,
-        "narHash": "sha256-Nf8BFp87xs8GrsOF/1f0XPPMAQ/yyh8GHbilEemW2pY=",
-        "lastModified": 1720367842,
-        "narHash": "sha256-Nf8BFp87xs8GrsOF/1f0XPPMAQ/yyh8GHbilEemW2pY=",
+        "lastModified": 1720881788,
+        "narHash": "sha256-fRJomTwtblIUiu6Q4UyC4GFKQuZHlLyJDAYaAUQDn+4=",
         "owner": "nicomem",
         "repo": "nixpkgs",
-        "rev": "700e422f017e2feb76856650f77410d8fe5ef778",
+        "rev": "6bb00fd5591a47b84039ceb8c16602678a017495",
         "type": "github"
       },
       "original": {
@@ -193,11 +191,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1720691131,
-        "narHash": "sha256-CWT+KN8aTPyMIx8P303gsVxUnkinIz0a/Cmasz1jyIM=",
+        "lastModified": 1720823163,
+        "narHash": "sha256-FZ5dnrvKkln9ESdoTR8R7GKW9rNpXNZrxGsOXsbsTpE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a046c1202e11b62cbede5385ba64908feb7bfac4",
+        "rev": "f12ee5f64c6a09995e71c9626d88c4efa983b488",
         "type": "github"
       },
       "original": {
