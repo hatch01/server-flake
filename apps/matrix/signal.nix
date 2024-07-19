@@ -37,7 +37,6 @@ in {
   };
 
   config = mkIf config.matrix.signal.enable {
-
     age.secrets = mkSecret "matrix_shared_secret" {
       owner = "mautrix-signal";
     };

@@ -32,15 +32,14 @@ in {
   config = mkIf config.matrix.enable {
     matrix.signal.enable = true;
 
-    age.secrets = mkSecrets { 
+    age.secrets = mkSecrets {
       "matrix_oidc" = {
-      owner = "matrix-synapse";
+        owner = "matrix-synapse";
+      };
+      "matrix_shared_secret_authentificator" = {
+        owner = "matrix-synapse";
+      };
     };
-    "matrix_shared_secret_authentificator" = {
-      owner = "matrix-synapse";
-    };
-    };
-    
 
     services.matrix-synapse = {
       enable = true;
