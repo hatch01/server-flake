@@ -3,6 +3,8 @@
   hostName,
   lib,
   mkSecrets,
+  mkSecret,
+  fudgeMyShitIn,
   ...
 }: let
   inherit (lib) mkEnableOption mkOption mkIf types;
@@ -17,6 +19,11 @@ in {
       };
     };
   };
+
+  imports = fudgeMyShitIn [
+    ./runner.nix
+    # (import ./runner.nix {inherit mkSecret config lib;})
+  ];
 
   config = mkIf config.gitlab.enable {
     age.secrets = let
@@ -41,6 +48,9 @@ in {
     services.gitlab = {
       enable = true;
       host = config.gitlab.hostName;
+      https = true;
+      port = 443;
+      statePath = "/storage/gitlab";
       databasePasswordFile = config.age.secrets."gitlab/databasePasswordFile".path;
       initialRootPasswordFile = config.age.secrets."gitlab/initialRootPasswordFile".path;
       secrets = {
@@ -57,6 +67,10 @@ in {
         username = "eymeric.monitoring";
         passwordFile = config.age.secrets.smtpPassword.path;
       };
+
+      # registry = {
+      #   enable = true;
+      # };
 
       extraConfig = {
         gitlab = {

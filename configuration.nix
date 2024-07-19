@@ -13,7 +13,7 @@
   mkSecrets = builtins.mapAttrs (name: value: value // {file = "${secretsPath}/${name}.age";});
   mkSecret = name: other: mkSecrets {${name} = other;};
 
-  fudgeMyShitIn = builtins.map (file: import file (args // {inherit mkSecret mkSecrets;}));
+  fudgeMyShitIn = builtins.map (file: import file (args // {inherit mkSecret mkSecrets fudgeMyShitIn;}));
 in {
   imports =
     [
@@ -23,7 +23,7 @@ in {
       ./impermanence.nix
     ]
     ++ fudgeMyShitIn [
-      apps/gitlab.nix
+      apps/gitlab
       apps/homepage.nix
       apps/nextcloud.nix
       apps/authelia.nix
@@ -127,7 +127,7 @@ in {
       enable = true;
 
       # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
+      dockerCompat = false;
 
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
