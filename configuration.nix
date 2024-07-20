@@ -114,11 +114,14 @@ in {
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+
 
   # zfs
   boot.supportedFilesystems = ["zfs"];
   boot.zfs.forceImportRoot = false;
   boot.zfs.devNodes = "/dev/disk/by-partuuid"; # TODO only needed in VMs
+
 
   # Enable common container config files in /etc/containers
   virtualisation.containers.enable = true;

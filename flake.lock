@@ -204,6 +204,22 @@
         "type": "indirect"
       }
     },
+    "onlyoffice": {
+      "locked": {
+        "lastModified": 1721486437,
+        "narHash": "sha256-n5z09IEXCnh/SCArZ+hANh0z9T7mbFOxv50SjDI1gw8=",
+        "owner": "hatch01",
+        "repo": "nixpkgs",
+        "rev": "1131ffbf02028edb19d84cf42468c4ee4ff2345b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hatch01",
+        "ref": "onlyoffice-documentserver",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -213,6 +229,7 @@
         "flake-parts": "flake-parts",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs_2",
+        "onlyoffice": "onlyoffice",
         "systems": "systems_3"
       }
     },

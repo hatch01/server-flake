@@ -1,8 +1,6 @@
 {
   disko.devices = let
-    rootDisk = "/dev/vda";
-    dataDisk1 = "/dev/vdb";
-    dataDisk2 = "/dev/vdc";
+    rootDisk = "/dev/sda";
   in {
     disk = {
       main = {
@@ -40,6 +38,10 @@
                     mountOptions = ["noatime"];
                     mountpoint = "/nix";
                   };
+                  "/storage" = {
+                    # neededForBoot = true;
+                    mountpoint = "/storage";
+                  };
                   "/persistent" = {
                     # neededForBoot = true;
                     mountpoint = "/persistent";
@@ -50,49 +52,6 @@
             };
           };
         };
-      };
-      data1 = {
-        type = "disk";
-        device = dataDisk1;
-        content = {
-          type = "gpt";
-          partitions = {
-            zfs = {
-              size = "100%";
-              content = {
-                type = "zfs";
-                pool = "storage";
-              };
-            };
-          };
-        };
-      };
-      data2 = {
-        type = "disk";
-        device = dataDisk2;
-        content = {
-          type = "gpt";
-          partitions = {
-            zfs = {
-              size = "100%";
-              content = {
-                type = "zfs";
-                pool = "storage";
-              };
-            };
-          };
-        };
-      };
-    };
-    zpool = {
-      storage = {
-        type = "zpool";
-        mode = "mirror";
-        # rootFsOptions = {
-        # compression = "zstd";
-        # "com.sun:auto-snapshot" = "false";
-        # };
-        mountpoint = "/storage";
       };
     };
   };

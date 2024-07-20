@@ -166,6 +166,7 @@ in {
 
       onlyoffice = mkIf config.onlyoffice.enable {
         enable = true;
+        package = pkgs.only.onlyoffice-documentserver;
         hostname = config.onlyoffice.hostName;
         jwtSecretFile = config.age.secrets.onlyofficeKey.path;
       };

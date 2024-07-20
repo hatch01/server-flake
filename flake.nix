@@ -23,6 +23,7 @@
 
     impermanence.url = "github:nix-community/impermanence";
 
+    onlyoffice.url = "github:hatch01/nixpkgs/onlyoffice-documentserver";
     authelia.url = "github:nicomem/nixpkgs/authelia-4.38";
   };
 
@@ -63,7 +64,7 @@
       flake = {
         nixosConfigurations = {
           jonquille = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
+            system = "aarch64-linux";
             modules = [
               ./configuration.nix
               ./disko.nix
@@ -82,8 +83,9 @@
             #look at how not to use ssh root login but pass via sudo
             user = "root";
             sshUser = "root";
-            remoteBuild = true; # think on it if it is a great option
-            path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.jonquille;
+            remoteBuild = true;
+            autoRollback = true;
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.jonquille;
           };
         };
 
