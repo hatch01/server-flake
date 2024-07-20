@@ -22,15 +22,9 @@ in {
 
     security.acme = {
       acceptTerms = true;
-      # defaults = {
-      #   email = "";
-      # };
-      # certs = {
-      # extraDomainNames = [
-      #   "${config.services.nextcloud.hostName}"
-      #   "${config.homepage.hostName}"
-      # ];
-      # };
+      defaults = {
+        email = "eymeric.monitoring@free.fr";
+      };
     };
 
     # when we have dns
@@ -54,6 +48,7 @@ in {
           sslCertificate = config.age.secrets.selfSignedCert.path;
           sslCertificateKey = config.age.secrets.selfSignedCertKey.path;
           useACMEHost = hostName;
+          enableACME = true;
           extraConfig = "proxy_cache cache;\n";
         };
       in {
@@ -67,7 +62,7 @@ in {
             return 200 '${builtins.toJSON data}';
           '';
         in {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey enableACME;
           locations = {
             "/" = mkIf config.homepage.enable {
               proxyPass = "http://localhost:${toString config.homepage.port}";
@@ -87,7 +82,7 @@ in {
         };
 
         ${config.netdata.hostName} = mkIf config.netdata.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey enableACME;
           locations = {
             "/" = {
               proxyPass = "http://localhost:${toString config.netdata.port}";
@@ -104,7 +99,7 @@ in {
         };
 
         ${config.adguard.hostName} = mkIf config.adguard.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey;
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey enableACME;
           locations = {
             "/" = {
               proxyPass = "http://localhost:${toString config.adguard.port}";
@@ -122,11 +117,11 @@ in {
 
         # TODO create a simplified method to define those
         ${config.nextcloud.hostName} = mkIf config.nextcloud.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig enableACME;
         };
 
         ${config.gitlab.hostName} = mkIf config.gitlab.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig enableACME;
           locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
         };
 
@@ -134,7 +129,7 @@ in {
           clientConfig."m.homeserver".base_url = "https://${config.matrix.hostName}";
         in
           mkIf config.matrix.enable {
-            inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
+            inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig enableACME;
             serverAliases = [config.matrix.hostName];
             root = mkIf config.matrix.enableElement (pkgs.element-web.override {
               conf = {
@@ -153,12 +148,12 @@ in {
             };
           };
         ${config.nixCache.hostName} = mkIf config.nixCache.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig enableACME;
           locations."/".proxyPass = "http://localhost:${toString config.nixCache.port}";
         };
 
         ${config.authelia.hostName} = mkIf config.authelia.enable {
-          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig;
+          inherit (cfg) forceSSL sslCertificate sslCertificateKey extraConfig enableACME;
           locations = let
             authUrl = "http://localhost:${toString config.authelia.port}";
           in {

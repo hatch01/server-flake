@@ -50,31 +50,31 @@ in {
   adguard.hostName = "dns.${hostName}";
   gitlab.hostName = "forge.${hostName}";
 
-  security.pki.certificates = [
-    ''      -----BEGIN CERTIFICATE-----
-      MIIDxTCCAq2gAwIBAgIUP6Jh5XBWvz34WVfJP5mXwxvVgWkwDQYJKoZIhvcNAQEL
-      BQAwUzELMAkGA1UEBhMCRlIxDjAMBgNVBAgMBVJob25lMQ0wCwYDVQQHDARMeW9u
-      MRIwEAYDVQQKDAlPbnl4IGNvcnAxETAPBgNVBAMMCG9ueXgub3ZoMB4XDTI0MDYy
-      MjEyNTYyM1oXDTI1MDYyMjEyNTYyM1owUzELMAkGA1UEBhMCRlIxDjAMBgNVBAgM
-      BVJob25lMQ0wCwYDVQQHDARMeW9uMRIwEAYDVQQKDAlPbnl4IGNvcnAxETAPBgNV
-      BAMMCG9ueXgub3ZoMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2jIx
-      yXkK+i3m9fH3aG47lmlLQSakqpgCiJjplUtnpTKnyJFSYVCSXh05KkeXHWbHIuB0
-      LmD781x3g43ozL79szM/twG5EoJRJlf6f1afolx+eAuFeFgyhbzLOorw8quHF99e
-      L9uCx439/+F74DV9saRsXfifJwm+lfEZFhL8asaw996RfcMXLNg9P/ukjVv0aInh
-      gSHCqfqr1VqELMDxCKzCzvAfksGCnG5NrtmhMDPtPjTEw9MDfdscrrru2lpB1D0W
-      gLBl4AISCcPFV5MNpIJoSRw2sMxE66nicjapNTKIsaUcLYylGeMAXab0aOu3ewQU
-      mITcf9PEB/Fgz+3XzwIDAQABo4GQMIGNMAsGA1UdDwQEAwIEMDATBgNVHSUEDDAK
-      BggrBgEFBQcDATBKBgNVHREEQzBBgghvbnl4Lm92aIIRYXV0aGVsaWEub255eC5v
-      dmiCEm5leHRjbG91ZC5vbnl4Lm92aIIOZm9yZ2Uub255eC5vdmgwHQYDVR0OBBYE
-      FJir+L4iZyesGP7Hu4QAKtNjiBTbMA0GCSqGSIb3DQEBCwUAA4IBAQA7O6uEC3he
-      CshWXIgQHiq+s2wUzxQWap6Eywd/UHhd3JqjGA9qpT7/soMzdBuo+aMwf3WwJwEE
-      q0tLEwbIRv8Wf/VVdzXcu04KsNJOCG3F6sG3wI8V4n/X3aPPlkQWywI8QfNWTz3w
-      QkFX2knMAcjRYgXdZg+GDNHD/dLYgbzlA2lxfGVU/2OCU4vl77du6HnTY894y3Pp
-      6HkObM9pdvhcLNmWLy3iObGR6eBHbTGomToP/T6/ln9k64KCI7Ipj7nL09cTvonP
-      A1wgZtcQstUMPKuvcVYPqFPay4KXpxGLbz7Jh+BWrZqghuQmpTpEr4rxrW/a/lfn
-      etI/ted5AZ9f
-      -----END CERTIFICATE-----''
-  ];
+  # security.pki.certificates = [
+  #   ''      -----BEGIN CERTIFICATE-----
+  #     MIIDxTCCAq2gAwIBAgIUP6Jh5XBWvz34WVfJP5mXwxvVgWkwDQYJKoZIhvcNAQEL
+  #     BQAwUzELMAkGA1UEBhMCRlIxDjAMBgNVBAgMBVJob25lMQ0wCwYDVQQHDARMeW9u
+  #     MRIwEAYDVQQKDAlPbnl4IGNvcnAxETAPBgNVBAMMCG9ueXgub3ZoMB4XDTI0MDYy
+  #     MjEyNTYyM1oXDTI1MDYyMjEyNTYyM1owUzELMAkGA1UEBhMCRlIxDjAMBgNVBAgM
+  #     BVJob25lMQ0wCwYDVQQHDARMeW9uMRIwEAYDVQQKDAlPbnl4IGNvcnAxETAPBgNV
+  #     BAMMCG9ueXgub3ZoMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2jIx
+  #     yXkK+i3m9fH3aG47lmlLQSakqpgCiJjplUtnpTKnyJFSYVCSXh05KkeXHWbHIuB0
+  #     LmD781x3g43ozL79szM/twG5EoJRJlf6f1afolx+eAuFeFgyhbzLOorw8quHF99e
+  #     L9uCx439/+F74DV9saRsXfifJwm+lfEZFhL8asaw996RfcMXLNg9P/ukjVv0aInh
+  #     gSHCqfqr1VqELMDxCKzCzvAfksGCnG5NrtmhMDPtPjTEw9MDfdscrrru2lpB1D0W
+  #     gLBl4AISCcPFV5MNpIJoSRw2sMxE66nicjapNTKIsaUcLYylGeMAXab0aOu3ewQU
+  #     mITcf9PEB/Fgz+3XzwIDAQABo4GQMIGNMAsGA1UdDwQEAwIEMDATBgNVHSUEDDAK
+  #     BggrBgEFBQcDATBKBgNVHREEQzBBgghvbnl4Lm92aIIRYXV0aGVsaWEub255eC5v
+  #     dmiCEm5leHRjbG91ZC5vbnl4Lm92aIIOZm9yZ2Uub255eC5vdmgwHQYDVR0OBBYE
+  #     FJir+L4iZyesGP7Hu4QAKtNjiBTbMA0GCSqGSIb3DQEBCwUAA4IBAQA7O6uEC3he
+  #     CshWXIgQHiq+s2wUzxQWap6Eywd/UHhd3JqjGA9qpT7/soMzdBuo+aMwf3WwJwEE
+  #     q0tLEwbIRv8Wf/VVdzXcu04KsNJOCG3F6sG3wI8V4n/X3aPPlkQWywI8QfNWTz3w
+  #     QkFX2knMAcjRYgXdZg+GDNHD/dLYgbzlA2lxfGVU/2OCU4vl77du6HnTY894y3Pp
+  #     6HkObM9pdvhcLNmWLy3iObGR6eBHbTGomToP/T6/ln9k64KCI7Ipj7nL09cTvonP
+  #     A1wgZtcQstUMPKuvcVYPqFPay4KXpxGLbz7Jh+BWrZqghuQmpTpEr4rxrW/a/lfn
+  #     etI/ted5AZ9f
+  #     -----END CERTIFICATE-----''
+  # ];
 
   nixpkgs.overlays = [
     ((import ./overlays/default.nix) inputs)
