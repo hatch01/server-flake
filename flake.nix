@@ -1,13 +1,6 @@
 {
   description = "A very basic flake";
 
-  nixConfig = {
-    extra-substituters = ["http://192.168.100.1"];
-    extra-trusted-public-keys = [
-      "192.168.100.1:ZhX5S6aDrkzK/KY7waSF5wQVG+fmiwV3GPgxWikjUCQ="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.05";
     flake-parts = {
