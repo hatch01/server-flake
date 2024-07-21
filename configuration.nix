@@ -194,15 +194,6 @@ in {
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII8szPPvvc4T9fsIR876a51XTWqSjtLZaYNmH++zQzNs eymericdechelette@gmail.com"
         ];
       };
-      eymeric = {
-        isNormalUser = true;
-        description = "eymeric";
-        extraGroups = ["networkmanager" "wheel"];
-        hashedPasswordFile = config.age.secrets.userPassword.path;
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII8szPPvvc4T9fsIR876a51XTWqSjtLZaYNmH++zQzNs eymericdechelette@gmail.com"
-        ];
-      };
     };
     groups.smtp = {};
   };
