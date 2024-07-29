@@ -120,6 +120,7 @@ in {
   # zfs
   boot.supportedFilesystems = ["zfs"];
   boot.zfs.forceImportRoot = false;
+  systemd.services.zfs-mount.enable = false;
   boot.zfs.devNodes = "/dev/disk/by-partuuid"; # TODO only needed in VMs
 
   # Enable common container config files in /etc/containers

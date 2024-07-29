@@ -1,8 +1,8 @@
 {
   disko.devices = let
-    rootDisk = "/dev/vda";
-    dataDisk1 = "/dev/vdb";
-    dataDisk2 = "/dev/vdc";
+    rootDisk = "/dev/sda";
+    dataDisk1 = "/dev/sdb";
+    dataDisk2 = "/dev/sdc";
   in {
     disk = {
       main = {
