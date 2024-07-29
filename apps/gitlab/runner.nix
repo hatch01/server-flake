@@ -18,7 +18,7 @@ in {
     virtualisation.docker.enable = true;
     services.gitlab-runner = {
       enable = true;
-      settings.concurrent = 4;
+      concurrent = 4;
       services = {
         # test = {
         #   dockerImage = "nixos/nix";
