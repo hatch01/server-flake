@@ -32,6 +32,7 @@ in {
       apps/nixCache.nix
       apps/adguard.nix
       apps/fail2ban.nix
+      apps/ddclient.nix
       apps/matrix
     ];
 
@@ -46,6 +47,7 @@ in {
   fail2ban.enable = true;
   matrix.enable = true;
   matrix.enableElement = true;
+  ddclient.enable = true;
 
   adguard.hostName = "dns.${hostName}";
   gitlab.hostName = "forge.${hostName}";
