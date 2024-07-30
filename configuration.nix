@@ -52,7 +52,7 @@ in {
   adguard.hostName = "dns.${hostName}";
   gitlab.hostName = "forge.${hostName}";
 
-  # networking.interfaces."eno1".wakeOnLan.policy = 
+  # networking.interfaces."eno1".wakeOnLan.policy =
   networking.interfaces."eno1".wakeOnLan.enable = true;
   boot.loader.timeout = 1;
 
