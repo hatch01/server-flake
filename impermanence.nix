@@ -46,6 +46,11 @@ in {
           group = "postgres";
         }
         "/var/log"
+        {
+          directory = "/var/lib/acme/";
+          user = "acme";
+          group = "nginx";
+        }
       ]
       ++ optionals config.netdata.enable ["/var/lib/netdata" "/var/cache/netdata"];
     files = [
