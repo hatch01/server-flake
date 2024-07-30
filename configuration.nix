@@ -233,7 +233,8 @@ in {
   services.openssh = {
     enable = true;
     settings = {
-      PermitRootLogin = "yes";
+      PermitRootLogin = "prohibit-password";
+      PasswordAuthentication = false;
     };
   };
 
