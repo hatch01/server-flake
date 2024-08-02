@@ -16,6 +16,6 @@ pub key of cache service: `onyx.ovh:jDq2MSDU6zuU7V+dgb2DH+UtCa8ztMyhc+1ZXJmPddc=
 
 cleaning nextcloud
 ```console
-rm -rf /var/lib/nextcloud 
+rm -rf /storage/nextcloud 
 sudo -u postgres dropdb nextcloud
 ```

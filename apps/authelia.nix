@@ -80,7 +80,7 @@ in {
       authelia.instances = {
         "${autheliaInstance}" = {
           enable = true;
-          package = pkgs.prs.authelia;
+          package = pkgs.authelia;
           user = "authelia";
           group = "authelia";
 
