@@ -4,7 +4,6 @@
   hostName,
   mkSecrets,
   pkgs,
-  inputs,
   ...
 }: let
   inherit (lib) mkEnableOption mkOption mkIf optionals types;
@@ -43,13 +42,6 @@ in {
       };
     };
   };
-
-  disabledModules = [
-    "services/security/authelia.nix"
-  ];
-  imports = [
-    "${inputs.authelia}/nixos/modules/services/security/authelia.nix"
-  ];
 
   config = mkIf config.authelia.enable {
     age.secrets = let

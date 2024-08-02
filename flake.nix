@@ -22,8 +22,6 @@
     };
 
     impermanence.url = "github:nix-community/impermanence";
-
-    authelia.url = "github:nicomem/nixpkgs/authelia-4.38";
   };
 
   outputs = {
@@ -83,6 +81,8 @@
             user = "root";
             sshUser = "root";
             remoteBuild = true; # think on it if it is a great option
+            autoRollback = false;
+            magicRollback = false;
             path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.jonquille;
           };
         };
