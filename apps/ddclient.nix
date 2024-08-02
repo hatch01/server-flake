@@ -16,15 +16,12 @@ in {
   };
 
   config = mkIf config.ddclient.enable {
-    age.secrets = mkSecret "dyndns" {
-      owner = "ddclient";
-      group = "users";
-    };
+    age.secrets = mkSecret "dyndns" {};
 
     services.ddclient = {
       enable = true;
       protocol = "dyndns2";
-      use = "web, web=checkip.dyndns.com, web-skip='Current IP Address'";
+      use = "web, web=api.ipify.org";
       server = "www.ovh.com";
       username = "onyx.ovh-box";
       passwordFile = config.age.secrets.dyndns.path;
