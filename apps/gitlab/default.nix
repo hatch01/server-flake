@@ -77,6 +77,7 @@ in {
           email_from = "gitlab@onyx.ovh";
           email_display_name = "GitLab";
           email_reply_to = "gitlab@onyx.ovh";
+          signup_enabled = false;
         };
 
         # Authelia configuration
