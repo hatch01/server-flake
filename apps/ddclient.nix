@@ -1,13 +1,10 @@
 {
   lib,
   config,
-  hostName,
   mkSecret,
-  pkgs,
-  inputs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption mkIf optionals types;
+  inherit (lib) mkEnableOption mkIf;
 in {
   options = {
     ddclient = {
@@ -21,7 +18,7 @@ in {
     services.ddclient = {
       enable = true;
       protocol = "dyndns2";
-      use = "web, web=api.ipify.org";
+      usev4 = "web, web=api.ipify.org";
       server = "www.ovh.com";
       username = "onyx.ovh-box";
       passwordFile = config.age.secrets.dyndns.path;
