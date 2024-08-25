@@ -40,6 +40,7 @@ in {
         }
         "/var/lib/systemd/coredump"
         "/etc/nixos"
+        "/var/lib/nixos"
         {
           directory = "/var/lib/postgresql";
           user = "postgres";
