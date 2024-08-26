@@ -18,7 +18,6 @@ in {
     services.ddclient = {
       enable = true;
       protocol = "dyndns2";
-      usev4 = "web, web=api.ipify.org";
       server = "www.ovh.com";
       username = "onyx.ovh-box";
       passwordFile = config.age.secrets.dyndns.path;
