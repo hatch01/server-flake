@@ -23,6 +23,7 @@ in {
       ./impermanence.nix
     ]
     ++ fudgeMyShitIn [
+      apps/postgres.nix
       apps/gitlab
       apps/homepage.nix
       apps/nextcloud.nix

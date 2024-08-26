@@ -94,18 +94,19 @@ in {
 
       extraConfigFiles = [config.age.secrets.matrix_shared_secret_authentificator.path];
     };
-    # services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
-    #   CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
-    #     TEMPLATE template0
-    #     LC_COLLATE = "C"
-    #     LC_CTYPE = "C";
-    # '';
+
+    postgres.initialScripts = [
+      ''
+        CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
+          TEMPLATE template0
+          LC_COLLATE = "C"
+          LC_CTYPE
+           = "C";''
+    ];
     services.postgresql = {
-      # ensureDatabases = ["matrix-synapse"];
       ensureUsers = [
         {
           name = "matrix-synapse";
-          # ensureDBOwnership = true;
         }
       ];
     };

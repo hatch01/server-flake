@@ -61,10 +61,8 @@ in {
         ensureUsers = [
           {name = "netdata";}
         ];
-        initialScript =
-          pkgs.writeText "grant-netdata"
-          "GRANT pg_monitor TO netdata;";
       };
     };
+    postgres.initialScripts = ["GRANT pg_monitor TO netdata;"];
   };
 }

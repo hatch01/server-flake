@@ -63,5 +63,16 @@ in {
       };
       environmentFile = config.age.secrets.matrix_shared_secret.path;
     };
+    postgres.initialScripts = [
+      ''
+        CREATE ROLE "mautrix-signal" WITH LOGIN PASSWORD 'signal';
+        CREATE DATABASE "mautrix-signal" WITH OWNER "mautrix-signal"
+          TEMPLATE template0
+          LC_COLLATE = "C"
+          LC_CTYPE = "C";''
+    ];
+    services.postgresql = {
+      ensureUsers = [{name = "mautrix_signal";}];
+    };
   };
 }
