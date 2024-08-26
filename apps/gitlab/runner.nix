@@ -18,7 +18,10 @@ in {
     virtualisation.docker.enable = true;
     services.gitlab-runner = {
       enable = true;
-      settings.concurrent = 4;
+      settings = {
+        concurrent = 4;
+        network_mode = "host";
+      };
       services = {
         # test = {
         #   dockerImage = "nixos/nix";
