@@ -39,6 +39,19 @@ in {
           ml = {
             "enabled" = "yes";
           };
+          db = {
+            mode = "dbengine";
+            "storage tiers" = 3;
+
+            # Tier 0, per second data
+            "dbengine multihost disk space MB" = 1024;
+
+            # Tier 1, per minute data
+            "dbengine tier 1 multihost disk space MB" = 1024;
+
+            # Tier 2, per hour data
+            "dbengine tier 2 multihost disk space MB" = 1024;
+          };
         };
       };
 
