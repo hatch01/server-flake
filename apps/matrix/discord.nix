@@ -20,6 +20,7 @@ in {
       registerToSynapse = true;
       settings = {
         bridge = {
+          displayname_template = "{{ or .GlobalName .Username .ID }} (Discord)";
           permissions = {
             "*" = "relay";
             "${hostName}" = "user";
