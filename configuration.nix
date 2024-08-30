@@ -194,8 +194,14 @@ in {
     #docker-compose # start group of containers for dev
     podman-compose # start group of containers for dev
     btop
-    neovim
+    killall
   ];
+
+  programs.neovim = {
+    enable = true;
+    vimAlias = true;
+    viAlias = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
