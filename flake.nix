@@ -80,7 +80,7 @@
             #look at how not to use ssh root login but pass via sudo
             user = "root";
             sshUser = "root";
-            remoteBuild = true; # think on it if it is a great option
+            remoteBuild = false; # think on it if it is a great option
             autoRollback = false;
             magicRollback = false;
             path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.jonquille;
