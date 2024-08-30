@@ -18,6 +18,7 @@
   defaultConfig = {
     homeserver.address = "http://localhost:8448";
     appservice = {
+      address = "localhost:${toString appservicePort}";
       hostname = "[::]";
       port = appservicePort;
       database.type = "sqlite3";
