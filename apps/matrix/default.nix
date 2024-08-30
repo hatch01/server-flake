@@ -3,14 +3,16 @@
   hostName,
   lib,
   pkgs,
-  mkSecret,
   mkSecrets,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption mkIf types;
+  inherit (lib) mkEnableOption mkOption mkIf types optionals;
+  puppetFile = "/var/lib/matrix-synapse/puppet.yaml";
 in {
   imports = [
-    (import ./signal.nix {inherit mkSecret config lib hostName;})
+    (import ./signal.nix {inherit config lib hostName;})
+    # (import ./discord.nix {inherit config lib hostName;})
+    (import ./whatsapp.nix {inherit config lib hostName;})
   ];
 
   options = {
@@ -31,22 +33,55 @@ in {
 
   config = mkIf config.matrix.enable {
     matrix.signal.enable = true;
+    matrix.whatsapp.enable = true;
+    # matrix.discord.enable = false;
 
     age.secrets = mkSecrets {
       "matrix_oidc" = {
         owner = "matrix-synapse";
       };
-      "matrix_shared_secret_authentificator" = {
+      "matrix_shared_secret" = {
         owner = "matrix-synapse";
       };
+    };
+
+    systemd.services.matrix-synapse = {
+      serviceConfig = {
+        EnvironmentFile = config.age.secrets.matrix_shared_secret.path;
+        SystemCallFilter = lib.mkForce ["@system-service"]; # making the service less secure to be able to modify files
+      };
+      preStart = lib.mkBefore ''
+        test -f '${puppetFile}' && rm -f '${puppetFile}'
+        ${pkgs.envsubst}/bin/envsubst \
+            -o '${puppetFile}' \
+            -i '${
+          (pkgs.writeText "double-puppet.yaml" (lib.generators.toYAML {}
+            {
+              id = "puppet";
+              url = "";
+              as_token = "$SHARED_AS_TOKEN";
+              hs_token = "somethingneveruserwedontcare";
+              sender_localpart = "somethingneveruserwedontcare2";
+              rate_limited = false;
+              namespaces = {
+                users = [
+                  {
+                    regex = "@.*:onyx\.ovh";
+                    exclusive = false;
+                  }
+                ];
+              };
+            }))
+        }'
+      '';
     };
 
     services.matrix-synapse = {
       enable = true;
 
-      plugins = with config.services.matrix-synapse.package.plugins; [
-        matrix-synapse-shared-secret-auth
-      ];
+      # plugins = with config.services.matrix-synapse.package.plugins; [
+      #   matrix-synapse-shared-secret-auth
+      # ];
 
       settings.server_name = config.networking.domain;
       # The public base URL value must match the `base_url` value set in `clientConfig` above.
@@ -70,6 +105,13 @@ in {
         }
       ];
 
+      settings.app_service_config_files = [
+        # "/var/lib/mautrix-signal/signal-registration-puppet.yaml"
+        puppetFile
+        "/var/lib/mautrix-whatsapp/whatsapp-registration.yaml"
+        #   "/var/lib/mautrix-signal/signal-registration.yaml"
+      ];
+
       settings.oidc_providers = [
         {
           idp_id = "authelia";
@@ -91,9 +133,11 @@ in {
           };
         }
       ];
-
-      extraConfigFiles = [config.age.secrets.matrix_shared_secret_authentificator.path];
     };
+
+    systemd.services.matrix-synapse.serviceConfig.SupplementaryGroups =
+      []
+      ++ optionals config.matrix.whatsapp.enable ["mautrix-whatsapp"];
 
     postgres.initialScripts = [
       ''

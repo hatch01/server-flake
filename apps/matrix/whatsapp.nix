@@ -8,16 +8,15 @@
 in {
   options = {
     matrix = {
-      signal = {
+      whatsapp = {
         enable = mkEnableOption "enable matrix";
       };
     };
   };
 
-  config = mkIf config.matrix.signal.enable {
-    services.mautrix-signal = {
+  config = mkIf config.matrix.whatsapp.enable {
+    services.mautrix-whatsapp = {
       enable = true;
-      registerToSynapse = true;
       settings = {
         bridge = {
           permissions = {
@@ -31,22 +30,22 @@ in {
         };
         homeserver = {
           address = "http://localhost:${toString config.matrix.port}";
-          domain = config.networking.domain;
         };
         appservice = {
           database = {
             type = "postgres";
-            uri = "postgresql:///mautrix-signal?host=/run/postgresql";
+            uri = "postgresql:///mautrix-whatsapp?host=/run/postgresql";
           };
+          ephemeral_events = false;
         };
       };
       environmentFile = config.age.secrets.matrix_shared_secret.path;
     };
     postgres.initialScripts = [
       ''
-        CREATE ROLE "mautrix-signal" WITH LOGIN PASSWORD 'signal';
-        ALTER ROLE "mautrix-signal" WITH LOGIN;
-        CREATE DATABASE "mautrix-signal" WITH OWNER "mautrix-signal"
+        CREATE ROLE "mautrix-whatsapp" WITH LOGIN PASSWORD 'whatsapp';
+        ALTER ROLE "mautrix-whatsapp" WITH LOGIN;
+        CREATE DATABASE "mautrix-whatsapp" WITH OWNER "mautrix-whatsapp"
           TEMPLATE template0
           LC_COLLATE = "C"
           LC_CTYPE = "C";''
