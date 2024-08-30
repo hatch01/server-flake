@@ -21,6 +21,7 @@ in {
       ./hardware-configuration.nix
       ./unfree.nix
       ./impermanence.nix
+      ./modules
     ]
     ++ fudgeMyShitIn [
       apps/postgres.nix

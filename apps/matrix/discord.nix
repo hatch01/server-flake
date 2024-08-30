@@ -8,19 +8,16 @@
 in {
   options = {
     matrix = {
-      whatsapp = {
+      discord = {
         enable = mkEnableOption "enable matrix";
       };
     };
   };
 
-  config = mkIf config.matrix.whatsapp.enable {
-    systemd.services.matrix-synapse.serviceConfig.SupplementaryGroups = ["mautrix-whatsapp"];
-    services.matrix-synapse.settings.app_service_config_files = [
-      # "/var/lib/mautrix-whatsapp/whatsapp-registration.yaml"
-    ];
-    services.mautrix-whatsapp = {
+  config = mkIf config.matrix.discord.enable {
+    services.mautrix-discord = {
       enable = true;
+      registerToSynapse = true;
       settings = {
         bridge = {
           permissions = {
@@ -34,11 +31,12 @@ in {
         };
         homeserver = {
           address = "http://localhost:${toString config.matrix.port}";
+          domain = config.networking.domain;
         };
         appservice = {
           database = {
             type = "postgres";
-            uri = "postgresql:///mautrix-whatsapp?host=/run/postgresql";
+            uri = "postgresql:///mautrix-discord?host=/run/postgresql";
           };
         };
       };
@@ -46,9 +44,9 @@ in {
     };
     postgres.initialScripts = [
       ''
-        CREATE ROLE "mautrix-whatsapp" WITH LOGIN PASSWORD 'whatsapp';
-        ALTER ROLE "mautrix-whatsapp" WITH LOGIN;
-        CREATE DATABASE "mautrix-whatsapp" WITH OWNER "mautrix-whatsapp"
+        CREATE ROLE "mautrix-discord" WITH LOGIN PASSWORD 'discord';
+        ALTER ROLE "mautrix-discord" WITH LOGIN;
+        CREATE DATABASE "mautrix-discord" WITH OWNER "mautrix-discord"
           TEMPLATE template0
           LC_COLLATE = "C"
           LC_CTYPE = "C";''

@@ -11,7 +11,7 @@
 in {
   imports = [
     (import ./signal.nix {inherit config lib hostName;})
-    # (import ./discord.nix {inherit config lib hostName;})
+    (import ./discord.nix {inherit config lib hostName;})
     (import ./whatsapp.nix {inherit config lib hostName;})
   ];
 
@@ -34,7 +34,7 @@ in {
   config = mkIf config.matrix.enable {
     matrix.signal.enable = true;
     matrix.whatsapp.enable = true;
-    # matrix.discord.enable = false;
+    matrix.discord.enable = true;
 
     age.secrets = mkSecrets {
       "matrix_oidc" = {
@@ -105,12 +105,7 @@ in {
         }
       ];
 
-      settings.app_service_config_files = [
-        # "/var/lib/mautrix-signal/signal-registration-puppet.yaml"
-        puppetFile
-        "/var/lib/mautrix-whatsapp/whatsapp-registration.yaml"
-        #   "/var/lib/mautrix-signal/signal-registration.yaml"
-      ];
+      settings.app_service_config_files = [puppetFile];
 
       settings.oidc_providers = [
         {
@@ -134,10 +129,6 @@ in {
         }
       ];
     };
-
-    systemd.services.matrix-synapse.serviceConfig.SupplementaryGroups =
-      []
-      ++ optionals config.matrix.whatsapp.enable ["mautrix-whatsapp"];
 
     postgres.initialScripts = [
       ''
