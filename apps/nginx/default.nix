@@ -118,7 +118,7 @@ in {
           inherit (cfg) forceSSL extraConfig enableACME;
         };
 
-        ${config.onlyoffice.hostName} = mkIf config.gitlab.enable {
+        ${config.onlyoffice.hostName} = mkIf config.onlyoffice.enable {
           inherit (cfg) forceSSL extraConfig enableACME;
         };
 
