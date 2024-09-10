@@ -20,7 +20,7 @@ in {
       registerToSynapse = true;
       settings = {
         bridge = {
-          displayname_template= "{{or .ProfileName .PhoneNumber \"Unknown user\"}} (Signal)";
+          displayname_template = "{{or .ProfileName .PhoneNumber \"Unknown user\"}} (Signal)";
           permissions = {
             "*" = "relay";
             "${hostName}" = "user";
