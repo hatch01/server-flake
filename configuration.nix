@@ -36,6 +36,7 @@ in {
       apps/fail2ban.nix
       apps/ddclient.nix
       apps/matrix
+      apps/homeassistant
     ];
 
   nextcloud.enable = true;
@@ -50,6 +51,7 @@ in {
   matrix.enable = true;
   matrix.enableElement = true;
   ddclient.enable = true;
+  homeassistant.enable = true;
 
   adguard.hostName = "dns.${hostName}";
   gitlab.hostName = "forge.${hostName}";

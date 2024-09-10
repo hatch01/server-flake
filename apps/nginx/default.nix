@@ -154,6 +154,25 @@ in {
           locations."/".proxyPass = "http://localhost:${toString config.nixCache.port}";
         };
 
+        ${config.homeassistant.hostName} = mkIf config.homeassistant.enable {
+          inherit (cfg) forceSSL extraConfig enableACME;
+          locations."/" = {
+            # Setting proxypass using nix option, enable the recommendedProxySettings we don't want
+            # Because homeassistant need to validate the proxy ip address
+            # And the ip addres of the server is dynamic so to bypass this security, we force to set X-Forwarded-For to 127.0.0.1
+            # All the other headers are just copied from the original recommendedProxySettings
+            extraConfig = ''
+              proxy_pass http://localhost:${toString config.homeassistant.port};
+              proxy_set_header        Host $host;
+              proxy_set_header        X-Real-IP $remote_addr;
+              proxy_set_header        X-Forwarded-For "127.0.0.1";
+              proxy_set_header        X-Forwarded-Proto $scheme;
+              proxy_set_header        X-Forwarded-Host $host;
+              proxy_set_header        X-Forwarded-Server $host;
+            '';
+          };
+        };
+
         ${config.authelia.hostName} = mkIf config.authelia.enable {
           inherit (cfg) forceSSL extraConfig enableACME;
           locations = let
