@@ -63,14 +63,14 @@ in {
           inherit (cfg) forceSSL enableACME;
           locations = {
             "/" = mkIf config.homepage.enable {
-              proxyPass = "http://localhost:${toString config.homepage.port}";
+              proxyPass = "http://[::1]:${toString config.homepage.port}";
               extraConfig = lib.strings.concatStringsSep "\n" [
                 (builtins.readFile ./auth-authrequest.conf)
               ];
             };
             # Corresponds to https://www.authelia.com/integration/proxies/nginx/#authelia-locationconf
             "/internal/authelia/authz" = {
-              proxyPass = "http://localhost:${toString config.authelia.port}/api/authz/auth-request";
+              proxyPass = "http://[::1]:${toString config.authelia.port}/api/authz/auth-request";
               extraConfig = builtins.readFile ./auth-location.conf;
             };
 
@@ -83,14 +83,14 @@ in {
           inherit (cfg) forceSSL enableACME;
           locations = {
             "/" = {
-              proxyPass = "http://localhost:${toString config.netdata.port}";
+              proxyPass = "http://[::1]:${toString config.netdata.port}";
               extraConfig = lib.strings.concatStringsSep "\n" [
                 (builtins.readFile ./auth-authrequest.conf)
               ];
             };
             # Corresponds to https://www.authelia.com/integration/proxies/nginx/#authelia-locationconf
             "/internal/authelia/authz" = {
-              proxyPass = "http://localhost:${toString config.authelia.port}/api/authz/auth-request";
+              proxyPass = "http://[::1]:${toString config.authelia.port}/api/authz/auth-request";
               extraConfig = builtins.readFile ./auth-location.conf;
             };
           };
@@ -100,14 +100,14 @@ in {
           inherit (cfg) forceSSL enableACME;
           locations = {
             "/" = {
-              proxyPass = "http://localhost:${toString config.adguard.port}";
+              proxyPass = "http://[::1]:${toString config.adguard.port}";
               extraConfig = lib.strings.concatStringsSep "\n" [
                 (builtins.readFile ./auth-authrequest.conf)
               ];
             };
             # Corresponds to https://www.authelia.com/integration/proxies/nginx/#authelia-locationconf
             "/internal/authelia/authz" = {
-              proxyPass = "http://localhost:${toString config.authelia.port}/api/authz/auth-request";
+              proxyPass = "http://[::1]:${toString config.authelia.port}/api/authz/auth-request";
               extraConfig = builtins.readFile ./auth-location.conf;
             };
           };
@@ -151,16 +151,16 @@ in {
           };
         ${config.nixCache.hostName} = mkIf config.nixCache.enable {
           inherit (cfg) forceSSL extraConfig enableACME;
-          locations."/".proxyPass = "http://localhost:${toString config.nixCache.port}";
+          locations."/".proxyPass = "http://[::1]:${toString config.nixCache.port}";
         };
 
         ${config.homeassistant.hostName} = mkIf config.homeassistant.enable {
-          inherit (cfg) forceSSL  enableACME;
+          inherit (cfg) forceSSL enableACME;
           extraConfig = ''
             proxy_buffering off;
           '';
           locations."/" = {
-            proxyPass = "http://localhost:${toString config.homeassistant.port}";
+            proxyPass = "http://[::1]:${toString config.homeassistant.port}";
             proxyWebsockets = true;
           };
         };
@@ -168,7 +168,7 @@ in {
         ${config.authelia.hostName} = mkIf config.authelia.enable {
           inherit (cfg) forceSSL extraConfig enableACME;
           locations = let
-            authUrl = "http://localhost:${toString config.authelia.port}";
+            authUrl = "http://[::1]:${toString config.authelia.port}";
           in {
             "/".proxyPass = authUrl;
             "/api/verify".proxyPass = authUrl;
