@@ -92,6 +92,23 @@ in {
             ];
           }
           {
+            "Home" = [
+              {
+                "Home Assistant" = {
+                  icon = "home-assistant.png";
+                  description = "HomeAssistant c'est vraiment cool";
+                  href = "https://${config.homeassistant.hostName}";
+                  siteMonitor = "https://${config.homeassistant.hostName}";
+                  widget = {
+                    type = "homeassistant";
+                    url = "https://${config.homeassistant.hostName}";
+                    key = "{{HOMEASSISTANT_KEY}}";
+                  };
+                };
+              }
+            ];
+          }
+          {
             "Administration" = [
               {
                 "Netdata" = {
