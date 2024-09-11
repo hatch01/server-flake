@@ -42,46 +42,17 @@ in {
             tarif = "Standard - Heure Pleine Heure Creuse";
             kWh_precision = "";
           };
-          "0x70b3d52b600b8d61" = {
-            friendly_name = "Frigo";
-            kWh_precision = "";
-          };
-          "0xa4c13838417869a3" = {
-            friendly_name = "temperature eymeric";
-            kWh_precision = "";
-          };
-          "0x70b3d52b600bbd25" = {
-            friendly_name = "pc eymeric";
-            kWh_precision = "";
-          };
-          "0x70b3d52b600b87f6" = {
-            friendly_name = "four; micro-onde; grille pain";
-            kWh_precision = "";
-          };
-          "0xa4c1383010c51a37" = {
-            friendly_name = "temperature Kevin";
-            kWh_precision = "";
-          };
-          "0x70b3d52b600b8a69" = {
-            friendly_name = "PC Kevin";
-            kWh_precision = "";
-          };
-          "0xa4c1387c77f5cec7" = {
-            friendly_name = "temperature Salon";
-            kWh_precision = "";
-          };
-          "0xa4c138c7433ae2c1" = {
-            friendly_name = "temperature Salle de Bain";
-            kWh_precision = "";
-          };
-          "0xa4c1380f61a7c337" = {
-            friendly_name = "temperature Cuisine";
-            kWh_precision = "";
-          };
-          "0x70b3d52b600bc013" = {
-            friendly_name = "Serveur";
-            kWh_precision = "";
-          };
+          "0x70b3d52b600b8d61".friendly_name = "Frigo";
+          "0xa4c13838417869a3".friendly_name = "temperature eymeric";
+          "0x70b3d52b600bbd25".friendly_name = "pc eymeric";
+          "0x70b3d52b600b87f6".friendly_name = "four; micro-onde; grille pain";
+          "0xa4c1383010c51a37".friendly_name = "temperature Kevin";
+          "0x70b3d52b600b8a69".friendly_name = "PC Kevin";
+          "0xa4c1387c77f5cec7".friendly_name = "temperature Salon";
+          "0xa4c138c7433ae2c1".friendly_name = "temperature Salle de Bain";
+          "0xa4c1380f61a7c337".friendly_name = "temperature Cuisine";
+          "0x70b3d52b600bc013".friendly_name = "Serveur";
+          "0xa4c138ee4f964b0c".friendly_name = "Chauffe eau";
         };
       };
     };
