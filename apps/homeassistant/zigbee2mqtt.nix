@@ -40,7 +40,9 @@ in {
             friendly_name = "ZLinky";
             linky_mode = "standard";
             tarif = "Standard - Heure Pleine Heure Creuse";
-            kWh_precision = "";
+            energy_phase = "auto";
+            production = "false";
+            kWh_precision = "3";
           };
           "0x70b3d52b600b8d61".friendly_name = "Frigo";
           "0xa4c13838417869a3".friendly_name = "temperature eymeric";
