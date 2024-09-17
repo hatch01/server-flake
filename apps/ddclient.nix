@@ -22,7 +22,7 @@ in {
       username = "onyx.ovh-ddclient";
       passwordFile = config.age.secrets.dyndns.path;
       use = "web";
-      ssl=false;
+      ssl = false;
       domains = [
         config.adguard.hostName
         config.gitlab.hostName
