@@ -26,16 +26,13 @@ in {
 
   config = mkIf config.homeassistant.enable {
     zigbee2mqtt.enable = true;
-    virtualisation.oci-containers = {
-      backend = "podman";
-      containers.homeassistant = {
-        volumes = ["/storage/homeassistant/:/config"];
-        environment.TZ = "Europe/Paris";
-        image = "ghcr.io/home-assistant/home-assistant:stable";
-        extraOptions = [
-          "--network=host"
-        ];
-      };
+    virtualisation.oci-containers.containers.homeassistant = {
+      volumes = ["/storage/homeassistant/:/config"];
+      environment.TZ = "Europe/Paris";
+      image = "ghcr.io/home-assistant/home-assistant:stable";
+      extraOptions = [
+        "--network=host"
+      ];
     };
   };
 }

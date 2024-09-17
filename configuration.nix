@@ -37,6 +37,7 @@ in {
       apps/ddclient.nix
       apps/matrix
       apps/homeassistant
+      apps/watchtower.nix
     ];
 
   nextcloud.enable = true;
@@ -52,6 +53,7 @@ in {
   matrix.enableElement = true;
   ddclient.enable = true;
   homeassistant.enable = true;
+  watchtower.enable = true;
 
   adguard.hostName = "dns.${hostName}";
   gitlab.hostName = "forge.${hostName}";
@@ -110,6 +112,7 @@ in {
   # Enable common container config files in /etc/containers
   virtualisation.containers.enable = true;
   virtualisation = {
+    oci-containers.backend = "podman";
     podman = {
       enable = true;
 
