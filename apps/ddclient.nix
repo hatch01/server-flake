@@ -19,8 +19,10 @@ in {
       enable = true;
       protocol = "dyndns2";
       server = "www.ovh.com";
-      username = "onyx.ovh-box";
+      username = "onyx.ovh-ddclient";
       passwordFile = config.age.secrets.dyndns.path;
+      use = "web";
+      ssl=false;
       domains = [
         config.adguard.hostName
         config.gitlab.hostName
@@ -30,6 +32,8 @@ in {
         config.homepage.hostName
         config.netdata.hostName
         config.nixCache.hostName
+        config.homeassistant.hostName
+        config.onlyoffice.hostName
       ];
     };
   };
