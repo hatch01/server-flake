@@ -2,7 +2,6 @@
   lib,
   config,
   hostName,
-  pkgs,
   ...
 }: let
   inherit (lib) mkEnableOption mkOption mkIf types;

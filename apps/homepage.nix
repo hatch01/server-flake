@@ -23,14 +23,15 @@ in {
     };
   };
 
-  config = {
+  config = mkIf config.homepage.enable {
     age.secrets = mkSecret "homepage" {
       owner = "root";
       group = "users";
       mode = "400";
     };
+    systemd.services.homepage-dashboard.environment."LOG_LEVEL" = "DEBUG";
 
-    services = mkIf config.homepage.enable {
+    services = {
       homepage-dashboard = {
         enable = true;
         openFirewall = false;

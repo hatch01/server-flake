@@ -6,7 +6,6 @@
   pkgs,
   inputs,
   hostName,
-  lib,
   ...
 } @ args: let
   secretsPath = ./secrets;

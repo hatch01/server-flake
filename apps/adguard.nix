@@ -2,12 +2,9 @@
   lib,
   config,
   hostName,
-  mkSecrets,
-  pkgs,
-  inputs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption mkIf optionals types;
+  inherit (lib) mkEnableOption mkOption mkIf types;
 in {
   options = {
     adguard = {

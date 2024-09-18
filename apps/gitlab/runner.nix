@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption mkIf types;
+  inherit (lib) mkIf;
 in {
   config = mkIf config.gitlab.enable {
     age.secrets = mkSecret "gitlab/runnerRegistrationConfigFile" {

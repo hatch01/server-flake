@@ -6,7 +6,7 @@
   mkSecrets,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption mkIf types optionals;
+  inherit (lib) mkEnableOption mkOption mkIf types;
   puppetFile = "/var/lib/matrix-synapse/puppet.yaml";
 in {
   imports = [
