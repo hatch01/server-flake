@@ -143,7 +143,7 @@ in {
               format = "text"; # for fail2ban better integration
               file_path = "/var/lib/authelia-main/authelia.log";
               keep_stdout = true;
-              level = "trace";
+              level = "info";
             };
             storage = {
               postgres = {
