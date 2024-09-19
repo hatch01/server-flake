@@ -103,7 +103,7 @@ in {
                   widget = {
                     type = "homeassistant";
                     url = "https://${config.homeassistant.hostName}";
-                    key = "{{HOMEASSISTANT_KEY}}";
+                    key = "{{HOMEPAGE_VAR_HOMEASSISTANT}}";
                   };
                 };
               }
