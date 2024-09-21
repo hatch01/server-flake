@@ -21,7 +21,7 @@ in {
       server = "www.ovh.com";
       username = "onyx.ovh-ddclient";
       passwordFile = config.age.secrets.dyndns.path;
-      use = "web";
+      usev4 = "web";
       ssl = false;
       domains = [
         config.adguard.hostName
